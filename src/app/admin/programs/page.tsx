@@ -1,20 +1,27 @@
 "use client";
 
-import api from "../../../lib/api";
 import { useEffect, useState } from "react";
 
+import api from "../../../lib/api";
+
+import ColumnTablePrograms from "./_components/column-table-programs";
+import DialogCreateProgram from "./_components/dialog-create-program";
+
 export default function ProgramsPage() {
-  const [programs, setPrograms] = useState<any[]>([]);
+
+  const [programs, setPrograms] = useState([]);
 
   useEffect(() => {
     fetchPrograms();
   }, []);
 
   const fetchPrograms = async () => {
+
     try {
+
       const response = await api.get("/programs");
 
-      setPrograms(response.data.data);
+      setPrograms(response.data.data || []);
 
     } catch (error) {
       console.log(error);
@@ -22,30 +29,33 @@ export default function ProgramsPage() {
   };
 
   return (
-    <div>
-      <h1 className="text-4xl font-bold mb-8">
-        Programs
-      </h1>
+    <div className="space-y-6">
 
-      <div className="bg-white rounded-2xl shadow overflow-hidden">
-        <table className="w-full">
-          <thead className="bg-green-700 text-white">
-            <tr>
-              <th className="p-4 text-left">Title</th>
-              <th className="p-4 text-left">Description</th>
-            </tr>
-          </thead>
+      <div className="flex justify-between items-center">
 
-          <tbody>
-            {programs.map((program) => (
-              <tr key={program.id} className="border-b">
-                <td className="p-4">{program.title}</td>
-                <td className="p-4">{program.description}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div>
+
+          <h1 className="text-4xl font-bold">
+            Programs
+          </h1>
+
+          <p className="text-gray-500">
+            Manage all programs
+          </p>
+
+        </div>
+
+        <DialogCreateProgram
+          onSuccess={fetchPrograms}
+        />
+
       </div>
+
+      <ColumnTablePrograms
+        data={programs}
+        onSuccess={fetchPrograms}
+      />
+
     </div>
   );
 }

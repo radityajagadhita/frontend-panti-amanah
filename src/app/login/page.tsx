@@ -1,10 +1,20 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import api from "../../../lib/api";
+import api from "../../lib/api";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function LoginPage() {
+    useEffect(() => {
+
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    router.push("/admin/dashboard");
+  }
+
+}, []);
   const { register, handleSubmit } = useForm();
 
   const router = useRouter();
@@ -16,7 +26,7 @@ export default function LoginPage() {
       localStorage.setItem(
         "token",
         response.data.access_token
-      );
+        );
 
       alert("Login berhasil");
 
@@ -26,7 +36,13 @@ export default function LoginPage() {
   console.log(error.response?.data);
 
   alert("Login gagal");
-    }
+      }
+      const handleLogout = () => {
+
+  localStorage.removeItem("token");
+
+  router.push("/admin/login");
+};
   };
 
   return (
