@@ -1,0 +1,184 @@
+"use client";
+
+import { useState } from "react";
+
+import api from "../../../../lib/api";
+
+export default function DialogCreateAnakAsuh({
+  onSuccess,
+}: any) {
+
+  const [open, setOpen] = useState(false);
+
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("Laki-laki");
+  const [education, setEducation] = useState("");
+  const [badge, setBadge] = useState("");
+  const [description, setDescription] = useState("");
+
+  const [photo, setPhoto] = useState<any>(null);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e: any) => {
+
+    e.preventDefault();
+
+    setLoading(true);
+
+    try {
+
+      const formData = new FormData();
+
+      formData.append("name", name);
+      formData.append("age", age);
+      formData.append("gender", gender);
+      formData.append("education", education);
+      formData.append("badge", badge);
+      formData.append("description", description);
+
+      if (photo) {
+        formData.append("photo", photo);
+      }
+
+      await api.post("/anak-asuh", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      alert("Anak asuh berhasil dibuat");
+
+      setOpen(false);
+
+      onSuccess();
+
+    } catch (error: any) {
+
+      console.log(error.response?.data);
+
+      alert("Gagal create anak asuh");
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <>
+
+      <button
+        onClick={() => setOpen(true)}
+        className="bg-green-700 text-white px-5 py-3 rounded-xl"
+      >
+        Create Anak Asuh
+      </button>
+
+      {open && (
+
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 overflow-auto">
+
+          <div className="bg-white p-8 rounded-2xl w-[600px]">
+
+            <h1 className="text-3xl font-bold mb-6">
+              Create Anak Asuh
+            </h1>
+
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-4"
+            >
+
+              <input
+                type="text"
+                placeholder="Nama"
+                className="w-full border p-4 rounded-xl"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+
+              <input
+                type="number"
+                placeholder="Umur"
+                className="w-full border p-4 rounded-xl"
+                value={age}
+                onChange={(e) => setAge(e.target.value)}
+              />
+
+              <select
+                className="w-full border p-4 rounded-xl"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              >
+                <option value="Laki-laki">
+                  Laki-laki
+                </option>
+
+                <option value="Perempuan">
+                  Perempuan
+                </option>
+              </select>
+
+              <input
+                type="text"
+                placeholder="Pendidikan"
+                className="w-full border p-4 rounded-xl"
+                value={education}
+                onChange={(e) => setEducation(e.target.value)}
+              />
+
+              <input
+                type="text"
+                placeholder="Badge"
+                className="w-full border p-4 rounded-xl"
+                value={badge}
+                onChange={(e) => setBadge(e.target.value)}
+              />
+
+              <textarea
+                placeholder="Description"
+                className="w-full border p-4 rounded-xl h-32"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+
+              <input
+                type="file"
+                accept="image/*"
+                className="w-full border p-4 rounded-xl"
+                onChange={(e: any) =>
+                  setPhoto(e.target.files[0])
+                }
+              />
+
+              <div className="flex gap-4">
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="bg-green-700 text-white px-5 py-3 rounded-xl"
+                >
+                  {loading ? "Loading..." : "Save"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  className="bg-gray-300 px-5 py-3 rounded-xl"
+                >
+                  Cancel
+                </button>
+
+              </div>
+
+            </form>
+
+          </div>
+
+        </div>
+
+      )}
+
+    </>
+  );
+}
