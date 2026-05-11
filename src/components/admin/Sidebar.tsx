@@ -11,6 +11,7 @@ import {
   MapPin,
   UserCircle,
   FolderKanban,
+  HandCoins,
 } from "lucide-react";
 
 export default function Sidebar() {
@@ -84,6 +85,14 @@ export default function Sidebar() {
         >
           <UserCircle size={20} />
           Profile
+        </Link>
+
+        <Link
+          href="/admin/needs"
+          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+        >
+          <HandCoins size={20} />
+          Needs
         </Link>
 
       </nav>
