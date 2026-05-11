@@ -5,31 +5,31 @@ from "react";
 
 import api from "../../../lib/api";
 
-import ColumnTableDonations
-from "./_components/column-table-donations";
+import ColumnTableNeeds
+from "./_components/column-table-needs";
 
-import DialogCreateDonations
-from "./_components/dialog-create-donations";
+import DialogCreateNeed
+from "./_components/dialog-create-need";
 
-export default function DonationsPage() {
+export default function NeedsPage() {
 
-  const [donations, setDonations] =
+  const [needs, setNeeds] =
     useState([]);
 
   useEffect(() => {
-    fetchDonations();
+    fetchNeeds();
   }, []);
 
-  const fetchDonations = async () => {
+  const fetchNeeds = async () => {
 
     try {
 
       const response = await api.get(
-        "/donations"
+        "/needs"
       );
 
-      setDonations(
-        response.data.data.data || []
+      setNeeds(
+        response.data.data || []
       );
 
     } catch (error) {
@@ -46,24 +46,24 @@ export default function DonationsPage() {
         <div>
 
           <h1 className="text-4xl font-bold">
-            Donations
+            Needs
           </h1>
 
           <p className="text-gray-500">
-            Incoming donation records
+            Manage donation campaigns
           </p>
 
         </div>
 
-        <DialogCreateDonations
-          onSuccess={fetchDonations}
+        <DialogCreateNeed
+          onSuccess={fetchNeeds}
         />
 
       </div>
 
-      <ColumnTableDonations
-        data={donations}
-        onSuccess={fetchDonations}
+      <ColumnTableNeeds
+        data={needs}
+        onSuccess={fetchNeeds}
       />
 
     </div>
