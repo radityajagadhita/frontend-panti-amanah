@@ -2,10 +2,10 @@
 
 import api from "../../../../lib/api";
 
-import DialogEditNeed
-from "./dialog-edit-need";
+import DialogEditLocation
+from "./dialog-edit-location";
 
-export default function ColumnTableNeeds({
+export default function ColumnTableLocations({
   data,
   onSuccess,
 }: any) {
@@ -15,7 +15,7 @@ export default function ColumnTableNeeds({
   ) => {
 
     const confirmDelete = confirm(
-      "Hapus need?"
+      "Hapus location?"
     );
 
     if (!confirmDelete) return;
@@ -23,7 +23,11 @@ export default function ColumnTableNeeds({
     try {
 
       await api.delete(
-        `/needs/${id}`
+        `/locations/${id}`
+      );
+
+      alert(
+        "Location berhasil dihapus"
       );
 
       onSuccess();
@@ -44,15 +48,11 @@ export default function ColumnTableNeeds({
           <tr>
 
             <th className="p-4 text-left">
-              Title
+              Address
             </th>
 
             <th className="p-4 text-left">
-              Target
-            </th>
-
-            <th className="p-4 text-left">
-              Bank
+              Google Maps
             </th>
 
             <th className="p-4 text-left">
@@ -65,44 +65,54 @@ export default function ColumnTableNeeds({
 
         <tbody>
 
-          {data.map((need: any) => (
+          {data.map((location: any) => (
 
             <tr
-              key={need.id}
+              key={location.id}
               className="border-t"
             >
 
-              <td className="p-4">
-                {need.title}
+              <td className="p-4 max-w-md">
+                {location.address}
               </td>
 
               <td className="p-4">
-                Rp
-                {Number(
-                  need.target_amount
-                ).toLocaleString()}
-              </td>
 
-              <td className="p-4">
-                {
-                  need.bank_account
-                    ?.bank_name
-                }
+                {location.google_maps_url ? (
+
+                  <a
+                    href={
+                      location.google_maps_url
+                    }
+                    target="_blank"
+                    className="text-blue-600 underline"
+                  >
+                    Open Maps
+                  </a>
+
+                ) : (
+
+                  <span className="text-gray-400">
+                    No Link
+                  </span>
+
+                )}
+
               </td>
 
               <td className="p-4">
 
                 <div className="flex gap-3">
 
-                  <DialogEditNeed
-                    need={need}
+                  <DialogEditLocation
+                    location={location}
                     onSuccess={onSuccess}
                   />
 
                   <button
                     onClick={() =>
                       handleDelete(
-                        need.id
+                        location.id
                       )
                     }
                     className="bg-red-500 text-white px-4 py-2 rounded-xl"

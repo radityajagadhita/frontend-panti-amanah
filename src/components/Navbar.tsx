@@ -1,16 +1,43 @@
-export default function Navbar() {
-  return (
-    <nav className="w-full px-10 py-5 flex items-center justify-between bg-white shadow-sm">
-      <h1 className="text-2xl font-bold text-green-700">
-        Panti Amanah
-      </h1>
+/*import Link from "next/link";
 
-      <div className="flex gap-6 text-sm font-medium">
-        <a href="#home">Home</a>
-        <a href="#program">Program</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#donasi">Donasi</a>
+export default function Navbar() {
+
+  return (
+
+    <nav className="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur border-b">
+
+      <div className="max-w-7xl mx-auto px-8 py-4 flex justify-between items-center">
+
+        <h1 className="text-2xl font-bold text-green-700">
+          Panti Amanah
+        </h1>
+
+        <div className="flex gap-8">
+
+          <Link href="/">
+            Home
+          </Link>
+
+          <Link href="/programs">
+            Programs
+          </Link>
+
+          <Link href="/galleries">
+            Galleries
+          </Link>
+
+          <Link href="/donations">
+            Donations
+          </Link>
+
+          <Link href="/about">
+            About
+          </Link>
+
+        </div>
+
       </div>
+
     </nav>
   );
-}
+}*/

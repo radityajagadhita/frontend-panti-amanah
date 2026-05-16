@@ -84,7 +84,10 @@ export default function DialogDetailDonation({
                 </p>
 
                 <h2 className="text-3xl font-bold text-green-700">
-                  Rp {donation.amount}
+                  {`Rp ${Number(donation.amount)
+                    .toLocaleString
+                    ("id-ID")}`
+                  }
                 </h2>
 
               </div>
