@@ -1,15 +1,110 @@
-export default function Navbar() {
-  return (
-    <nav className="w-full px-10 py-5 flex items-center justify-between bg-white shadow-sm">
-      <h1 className="text-2xl font-bold text-green-700">
-        Panti Amanah
-      </h1>
+"use client";
 
-      <div className="flex gap-6 text-sm font-medium">
-        <a href="#home">Home</a>
-        <a href="#program">Program</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#donasi">Donasi</a>
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Menu, X, Leaf } from "lucide-react";
+
+const navLinks = [
+  { href: "/", label: "Beranda" },
+  { href: "/profile", label: "Tentang Kami" },
+  { href: "/anak-asuh", label: "Anak Asuh" },
+  { href: "/galeri", label: "Galeri" },
+];
+
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
+  return (
+    <nav
+      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+        scrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary-900/5"
+          : "bg-white"
+      }`}
+    >
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex h-16 items-center justify-between md:h-20">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-md shadow-primary-500/30 transition-transform group-hover:scale-105">
+              <Leaf className="h-5 w-5 text-white" />
+            </div>
+            <span className="text-xl font-bold tracking-tight text-primary-800">
+              Panti <span className="text-primary-600">Amanah</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`relative px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                    isActive
+                      ? "text-primary-700 bg-primary-50"
+                      : "text-gray-600 hover:text-primary-700 hover:bg-primary-50/50"
+                  }`}
+                >
+                  {link.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 w-6 rounded-full bg-primary-500" />
+                  )}
+                </Link>
+              );
+            })}
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden flex h-10 w-10 items-center justify-center rounded-xl text-gray-600 hover:bg-primary-50 hover:text-primary-700 transition-colors"
+            aria-label="Toggle navigation menu"
+          >
+            {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+          isOpen ? "max-h-80 border-t border-primary-100" : "max-h-0"
+        }`}
+      >
+        <div className="space-y-1 px-4 py-3 bg-white">
+          {navLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`block rounded-xl px-4 py-3 text-sm font-medium transition-colors ${
+                  isActive
+                    ? "bg-primary-50 text-primary-700"
+                    : "text-gray-600 hover:bg-primary-50/50 hover:text-primary-700"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
+        </div>
       </div>
     </nav>
   );

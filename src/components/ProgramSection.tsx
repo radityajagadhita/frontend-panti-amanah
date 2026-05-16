@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import api from "@/lib/api";
+import api from "@/src/lib/api";
 
 interface Program {
   id: number;
