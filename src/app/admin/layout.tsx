@@ -29,7 +29,7 @@ export default function AdminLayout({
 
       <Sidebar />
 
-      <div className="flex-1">
+      <div className="flex-1 ml-72">
 
         <Navbar />
 
