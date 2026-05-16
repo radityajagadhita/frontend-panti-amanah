@@ -16,7 +16,7 @@ import {
 
 export default function Sidebar() {
   return (
-    <aside className="w-72 bg-green-800 text-white min-h-screen p-6">
+    <aside className="w-72 bg-yellow-400 text-white min-h-screen p-6">
       <h1 className="text-3xl font-bold mb-10">
         Admin Panel
       </h1>
@@ -25,7 +25,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/dashboard"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <LayoutDashboard size={20} />
           Dashboard
@@ -33,7 +33,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/programs"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <FolderKanban size={20} />
           Programs
@@ -41,7 +41,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/galleries"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <Image size={20} />
           Galleries
@@ -49,7 +49,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/anak-asuh"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <Users size={20} />
           Anak Asuh
@@ -57,7 +57,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/donations"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <HeartHandshake size={20} />
           Donations
@@ -65,7 +65,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/bank-accounts"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <Banknote size={20} />
           Bank Accounts
@@ -73,7 +73,7 @@ export default function Sidebar() {
 
         <Link
           href="/admin/locations"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <MapPin size={20} />
           Locations
@@ -81,18 +81,10 @@ export default function Sidebar() {
 
         <Link
           href="/admin/profile"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
+          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
         >
           <UserCircle size={20} />
           Profile
-        </Link>
-
-        <Link
-          href="/admin/needs"
-          className="flex items-center gap-3 hover:bg-green-700 p-3 rounded-xl"
-        >
-          <HandCoins size={20} />
-          Needs
         </Link>
 
       </nav>

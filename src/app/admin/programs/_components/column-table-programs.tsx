@@ -30,6 +30,7 @@ export default function ColumnTablePrograms({
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
+      <div className="overflow-y-auto flex-1 scrollbar-thin">
 
       <table className="w-full">
 
@@ -96,7 +97,8 @@ export default function ColumnTablePrograms({
 
         </tbody>
 
-      </table>
+        </table>
+      </div>
 
     </div>
   );

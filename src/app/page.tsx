@@ -6,10 +6,11 @@ import ProgramSection from "../components/ProgramSection";
 export const metadata = {
   title: "Panti Amanah",
   description:
-    "Panti Amanah adalah sebuah organisasi yang didedikasikan untuk memberikan bantuan dan dukungan kepada anak-anak yatim piatu, kaum dhuafa, dan masyarakat kurang mampu. Kami berkomitmen untuk menciptakan lingkungan yang aman, nyaman, dan penuh kasih sayang bagi mereka yang membutuhkan. Melalui berbagai program sosial, pendidikan, dan kesehatan, kami berusaha untuk meningkatkan kualitas hidup mereka dan memberikan harapan untuk masa depan yang lebih baik.",
+    "Panti Amanah adalah sebuah organisasi yang didedikasikan untuk membantu anak-anak yatim piatu dan masyarakat kurang mampu.",
 };
 
 export default function HomePage() {
+
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar />

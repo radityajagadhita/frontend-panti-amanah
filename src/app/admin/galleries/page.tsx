@@ -1,15 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import {
+  useEffect,
+  useState,
+} from "react";
 
 import api from "../../../lib/api";
 
-import DialogCreateGallery from "./_components/dialog-create-gallery";
-import ColumnTableGalleries from "./_components/column-table-galleries";
+import ColumnTableGalleries
+from "./_components/column-table-galleries";
 
+import DialogCreateGalleries
+from "./_components/dialog-create-gallery";
 export default function GalleriesPage() {
 
-  const [galleries, setGalleries] = useState([]);
+  const [galleries, setGalleries] =
+    useState([]);
 
   useEffect(() => {
     fetchGalleries();
@@ -19,11 +25,17 @@ export default function GalleriesPage() {
 
     try {
 
-      const response = await api.get("/galleries");
+      const response =
+        await api.get(
+          "/galleries"
+        );
 
-      setGalleries(response.data.data || []);
+      setGalleries(
+        response.data.data || []
+      );
 
     } catch (error) {
+
       console.log(error);
     }
   };
@@ -40,12 +52,12 @@ export default function GalleriesPage() {
           </h1>
 
           <p className="text-gray-500">
-            Manage gallery images
+            Manage gallery photos
           </p>
 
         </div>
 
-        <DialogCreateGallery
+        <DialogCreateGalleries
           onSuccess={fetchGalleries}
         />
 

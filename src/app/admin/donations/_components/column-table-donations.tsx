@@ -36,11 +36,13 @@ export default function ColumnTableDonations({
   };
 
   return (
-    <div className="bg-white rounded-2xl shadow overflow-hidden">
+    <div className="bg-white rounded-2xl shadow overflow-hidden h-[700px] flex flex-col">
 
-      <table className="w-full">
+      <div className="overflow-y-auto flex-1 scrollbar-thin">
 
-        <thead className="bg-gray-100">
+        <table className="w-full">
+
+        <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm">
 
           <tr>
 
@@ -58,6 +60,10 @@ export default function ColumnTableDonations({
 
             <th className="p-4 text-left">
               Proof
+            </th>
+
+            <th className="p-4 text-left">
+              Bank
             </th>
 
             <th className="p-4 text-left">
@@ -82,7 +88,10 @@ export default function ColumnTableDonations({
               </td>
 
               <td className="p-4 font-bold text-green-700">
-                Rp {donation.amount}
+                Rp{" "}
+                  {Number(
+                    donation.amount
+                  ).toLocaleString("id-ID")}
               </td>
 
               <td className="p-4">
@@ -100,6 +109,12 @@ export default function ColumnTableDonations({
                 />
 
               </td>
+
+                <td className="p-4">{
+                  donation.bank_account?.bank_name
+                  || "-"
+                }
+                </td>
 
               <td className="p-4">
 
@@ -130,7 +145,8 @@ export default function ColumnTableDonations({
 
         </tbody>
 
-      </table>
+        </table>
+      </div>
 
     </div>
   );

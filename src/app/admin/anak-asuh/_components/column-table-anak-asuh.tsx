@@ -31,10 +31,11 @@ export default function ColumnTableAnakAsuh({
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
+      <div className="overflow-y-auto flex-1 scrollbar-thin">
 
       <table className="w-full">
 
-        <thead className="bg-gray-100">
+        <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm">
 
           <tr>
 
@@ -78,7 +79,7 @@ export default function ColumnTableAnakAsuh({
               <td className="p-4">
 
                 <img
-                  src={`http://127.0.0.1:8000/storage/${child.photo}`}
+                  src={child.photo_url}
                   alt=""
                   className="w-16 h-16 object-cover rounded-full"
                 />
@@ -127,7 +128,8 @@ export default function ColumnTableAnakAsuh({
 
         </tbody>
 
-      </table>
+        </table>
+      </div>
 
     </div>
   );

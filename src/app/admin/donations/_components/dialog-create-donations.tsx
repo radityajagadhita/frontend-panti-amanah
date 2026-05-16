@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
@@ -10,8 +11,6 @@ export default function DialogCreateDonations({
 
   const [open, setOpen] = useState(false);
 
-  const [needs, setNeeds] = useState([]);
-
   const [banks, setBanks] = useState([]);
 
   const [loading, setLoading] = useState(false);
@@ -20,7 +19,6 @@ export default function DialogCreateDonations({
     donor_name: "",
     phone_number: "",
     tujuan: "",
-    donasi_id: "",
     bank_account_id: "",
     amount: "",
   });
@@ -29,27 +27,19 @@ export default function DialogCreateDonations({
     useState<any>(null);
 
   useEffect(() => {
-
-    fetchData();
-
+    fetchBanks();
   }, []);
 
-  const fetchData = async () => {
+  const fetchBanks = async () => {
 
     try {
 
-      const [needsRes, banksRes] =
-        await Promise.all([
-          api.get("/needs"),
-          api.get("/bank-accounts"),
-        ]);
-
-      setNeeds(
-        needsRes.data.data || []
+      const response = await api.get(
+        "/bank-accounts"
       );
 
       setBanks(
-        banksRes.data.data || []
+        response.data.data || []
       );
 
     } catch (error) {
@@ -122,7 +112,6 @@ export default function DialogCreateDonations({
 
   return (
     <>
-
       <button
         onClick={() => setOpen(true)}
         className="bg-green-700 text-white px-5 py-3 rounded-xl"
@@ -173,30 +162,6 @@ export default function DialogCreateDonations({
               />
 
               <select
-                name="donasi_id"
-                value={form.donasi_id}
-                onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
-              >
-
-                <option value="">
-                  Pilih Donasi
-                </option>
-
-                {needs.map((need: any) => (
-
-                  <option
-                    key={need.id}
-                    value={need.id}
-                  >
-                    {need.title}
-                  </option>
-
-                ))}
-
-              </select>
-
-              <select
                 name="bank_account_id"
                 value={
                   form.bank_account_id
@@ -231,15 +196,32 @@ export default function DialogCreateDonations({
                 className="w-full border p-4 rounded-xl"
               />
 
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e: any) =>
+              <label className="flex items-center gap-4 border rounded-2xl px-5 py-4 cursor-pointer hover:border-black-500 transition-all">
+
+                <span className="bg-gray-500 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all">
+                  Choose File
+                </span>
+
+                <span className="text-gray-500 text-sm">
+                  {
+                    paymentProof
+                      ? paymentProof.name
+                      : "No file chosen"
+                  }
+                </span>
+
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e: any) =>
                     setPaymentProof(
-                    e.target.files[0]
+                      e.target.files[0]
                     )
-                }
+                  }
                 />
+
+              </label>
 
               <div className="flex gap-4">
 
@@ -272,7 +254,7 @@ export default function DialogCreateDonations({
         </div>
 
       )}
-
     </>
   );
 }
+

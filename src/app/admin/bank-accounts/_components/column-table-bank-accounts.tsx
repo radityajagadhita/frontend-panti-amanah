@@ -33,10 +33,11 @@ export default function ColumnTableBankAccounts({
 
   return (
     <div className="bg-white rounded-2xl shadow overflow-hidden">
+      <div className="overflow-y-auto flex-1 scrollbar-thin">
 
       <table className="w-full">
 
-        <thead className="bg-gray-100">
+        <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm">
 
           <tr>
 
@@ -74,7 +75,7 @@ export default function ColumnTableBankAccounts({
               </td>
 
               <td className="p-4">
-                {bank.account_name}
+                {bank.account_holder}
               </td>
 
               <td className="p-4">
@@ -100,7 +101,8 @@ export default function ColumnTableBankAccounts({
 
         </tbody>
 
-      </table>
+        </table>
+      </div>
 
     </div>
   );
