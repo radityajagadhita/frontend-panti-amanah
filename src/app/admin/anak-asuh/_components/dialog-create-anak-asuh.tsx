@@ -142,14 +142,30 @@ export default function DialogCreateAnakAsuh({
                 onChange={(e) => setDescription(e.target.value)}
               />
 
+              <label className="flex items-center gap-4 border rounded-2xl px-5 py-4 cursor-pointer hover:border-black-500 transition-all">
+
+                <span className="bg-gray-500 text-white px-4 py-2 rounded-xl text-sm font-medium transition-all">
+                  Choose File
+                </span>
+
+                <span className="text-gray-500 text-sm">
+                  {
+                    photo
+                      ? photo.name
+                      : "No file chosen"
+                  }
+                </span>
+              
               <input
                 type="file"
                 accept="image/*"
-                className="w-full border p-4 rounded-xl"
+                className="hidden"
                 onChange={(e: any) =>
                   setPhoto(e.target.files[0])
                 }
               />
+
+              </label>
 
               <div className="flex gap-4">
 

@@ -20,6 +20,8 @@ export default function ProfilePage() {
     try {
 
       const response = await api.get("/profile");
+      console.log(response.data);
+
 
       setProfile(response.data.data);
 
