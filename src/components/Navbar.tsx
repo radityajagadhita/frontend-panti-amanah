@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/profile", label: "Tentang Kami" },
   { href: "/anak-asuh", label: "Anak Asuh" },
   { href: "/galeri", label: "Galeri" },
+  { href: "/donasi", label: "Donasi" },
 ];
 
 export default function Navbar() {
