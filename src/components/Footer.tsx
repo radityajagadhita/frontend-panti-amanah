@@ -7,6 +7,7 @@ const quickLinks = [
   { href: "/anak-asuh", label: "Anak Asuh" },
   { href: "/galeri", label: "Galeri" },
   { href: "/donasi", label: "Donasi" },
+  { href: "/kalkulator-zakat", label: "Kalkulator Zakat" },
 ];
 
 export default function Footer() {
