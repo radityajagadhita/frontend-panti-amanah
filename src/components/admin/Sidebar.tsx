@@ -30,7 +30,7 @@ export default function Sidebar() {
   ];
 
   return (
-    <aside className="w-72 bg-green-600 text-white min-h-screen p-6 fixed overflow-y-auto z-50">
+    <aside className="w-72 bg-yellow-500 text-white min-h-screen p-6 fixed overflow-y-auto z-50">
       <h1 className="text-3xl font-bold mb-10">
         Admin Panel
       </h1>
@@ -43,7 +43,7 @@ export default function Sidebar() {
               key={item.href}
               href={item.href}
               className={`flex items-center gap-3 p-2 transition-colors ${
-                isActive ? "border-b-2 border-white font-bold" : "hover:bg-green-500/50"
+                isActive ? "border-l-3 border-white bg-yellow-700 font-bold" : "hover:bg-yellow-500/50"
               }`}
             >
               <item.icon size={20} />
