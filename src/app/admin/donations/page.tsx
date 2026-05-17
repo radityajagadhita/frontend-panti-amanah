@@ -29,7 +29,7 @@ export default function DonationsPage() {
       );
 
       setDonations(
-        response.data.data.data || []
+        response.data.data || []
       );
 
     } catch (error) {

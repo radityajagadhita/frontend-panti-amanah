@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogCreateGallery({
   onSuccess,
@@ -15,12 +16,23 @@ export default function DialogCreateGallery({
 
   const [loading, setLoading] = useState(false);
 
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error" | "warning";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleSubmit = async (e: any) => {
 
     e.preventDefault();
 
     if (!image) {
-      return alert("Image wajib dipilih");
+      setAlertModal({
+        isOpen: true,
+        type: "warning",
+        message: "Image wajib dipilih",
+      });
+      return;
     }
 
     setLoading(true);
@@ -43,8 +55,6 @@ export default function DialogCreateGallery({
         },
       });
 
-      alert("Gallery berhasil dibuat");
-
       setOpen(false);
 
       setTitle("");
@@ -52,11 +62,21 @@ export default function DialogCreateGallery({
 
       onSuccess();
 
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Gallery berhasil dibuat",
+      });
+
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal upload gallery");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal upload gallery",
+      });
     }
 
     setLoading(false);
@@ -147,6 +167,13 @@ export default function DialogCreateGallery({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

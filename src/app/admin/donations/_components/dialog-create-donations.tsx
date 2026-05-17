@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogCreateDonations({
   onSuccess,
@@ -25,6 +26,12 @@ export default function DialogCreateDonations({
 
   const [paymentProof, setPaymentProof] =
     useState<any>(null);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   useEffect(() => {
     fetchBanks();
@@ -94,17 +101,25 @@ export default function DialogCreateDonations({
         }
       );
 
-      alert("Donation berhasil dibuat");
-
       setOpen(false);
 
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Donation berhasil dibuat",
+      });
 
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal create donation");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal create donation",
+      });
     }
 
     setLoading(false);
@@ -254,6 +269,13 @@ export default function DialogCreateDonations({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
     </>
   );
 }

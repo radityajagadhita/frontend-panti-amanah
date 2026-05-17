@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogCreateAnakAsuh({
   onSuccess,
@@ -15,11 +16,18 @@ export default function DialogCreateAnakAsuh({
   const [gender, setGender] = useState("Laki-laki");
   const [education, setEducation] = useState("");
   const [badge, setBadge] = useState("");
+  const [TanggalLahir, setTanggalLahir] = useState("");
   const [description, setDescription] = useState("");
 
   const [photo, setPhoto] = useState<any>(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleSubmit = async (e: any) => {
 
@@ -36,6 +44,7 @@ export default function DialogCreateAnakAsuh({
       formData.append("gender", gender);
       formData.append("education", education);
       formData.append("badge", badge);
+      formData.append("tanggal_lahir", TanggalLahir);
       formData.append("description", description);
 
       if (photo) {
@@ -48,17 +57,25 @@ export default function DialogCreateAnakAsuh({
         },
       });
 
-      alert("Anak asuh berhasil dibuat");
-
       setOpen(false);
 
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Anak asuh berhasil dibuat",
+      });
 
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal create anak asuh");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal create anak asuh",
+      });
     }
 
     setLoading(false);
@@ -135,6 +152,14 @@ export default function DialogCreateAnakAsuh({
                 onChange={(e) => setBadge(e.target.value)}
               />
 
+              <input
+                type="date"
+                placeholder="Tanggal lahir"
+                className="w-full border p-4 rounded-xl"
+                value={TanggalLahir}
+                onChange={(e) => setTanggalLahir(e.target.value)}
+              />
+
               <textarea
                 placeholder="Description"
                 className="w-full border p-4 rounded-xl h-32"
@@ -194,6 +219,13 @@ export default function DialogCreateAnakAsuh({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

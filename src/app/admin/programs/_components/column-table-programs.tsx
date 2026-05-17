@@ -1,30 +1,40 @@
 "use client";
 
+import { useState } from "react";
 import api from "../../../../lib/api";
 
 import DialogEditProgram from "./dialog-edit-program";
+import ConfirmModal from "../../../../components/admin/confirmModal";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function ColumnTablePrograms({
   data,
   onSuccess,
 }: any) {
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleDelete = async (id: number) => {
-
-    const confirmDelete = confirm("Yakin hapus program?");
-
-    if (!confirmDelete) return;
-
     try {
-
       await api.delete(`/programs/${id}`);
-
-      alert("Program berhasil dihapus");
-
       onSuccess();
-
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Program berhasil dihapus",
+      });
     } catch (error) {
       console.log(error);
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus program",
+      });
     }
   };
 
@@ -81,7 +91,7 @@ export default function ColumnTablePrograms({
                   />
 
                   <button
-                    onClick={() => handleDelete(program.id)}
+                    onClick={() => setDeleteId(program.id)}
                     className="bg-red-500 text-white px-4 py-2 rounded-lg"
                   >
                     Delete
@@ -100,6 +110,22 @@ export default function ColumnTablePrograms({
         </table>
       </div>
 
+      <ConfirmModal
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={() => {
+          if (deleteId !== null) handleDelete(deleteId);
+        }}
+        title="Hapus Program"
+        message="Apakah Anda yakin ingin menghapus program ini? Tindakan ini tidak dapat dibatalkan."
+      />
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
     </div>
   );
 }

@@ -1,10 +1,7 @@
+"use client"
+
 import { Quote, Eye, Target, Award, Clock } from "lucide-react";
 import { organizationProfile } from "@/src/data/mockProfile";
-
-export const metadata = {
-  title: "Tentang Kami — Panti Amanah",
-  description: organizationProfile.vision,
-};
 
 export default function ProfilePage() {
   const { sambutan, vision, mission, motto, history } = organizationProfile;

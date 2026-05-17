@@ -100,7 +100,7 @@ export default function DialogDetailDonation({
 
                 <img
                   src={
-                    donation.payment_proof_url
+                    donation.payment_proof
                   }
                   alt=""
                   className="w-full rounded-2xl border"

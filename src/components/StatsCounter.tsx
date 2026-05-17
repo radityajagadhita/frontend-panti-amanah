@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Users, Calendar, Heart, BookOpen } from "lucide-react";
-import type { StatItem } from "@/src/data/mockStats";
+import { StatItem } from "../data/mockStats";
+import statDashboard from "../data/statsDashboard";
 
 const iconMap = {
   users: Users,
@@ -11,10 +12,28 @@ const iconMap = {
   "book-open": BookOpen,
 };
 
+const suffix = {
+  anakAsuh: "+",
+  tahunBerdiri: "+",
+  donatur: "+",
+  program: "+",
+}
+
 export default function StatsCounter({ stat }: { stat: StatItem }) {
   const [count, setCount] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const { data, loading } = statDashboard();
+
+  // Memetakan ID dari stat ke key di data dashboard
+  const dataKeyMap: Record<string, keyof typeof data> = {
+    children: "anakAsuh",
+    years: "tahunBerdiri",
+    donors: "donatur",
+    programs: "program",
+  };
+
+  const targetValue = data[dataKeyMap[stat.id]] || 0;
 
   useEffect(() => {
     const el = ref.current;
@@ -33,22 +52,28 @@ export default function StatsCounter({ stat }: { stat: StatItem }) {
   }, []);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || loading) return;
     const duration = 2000;
     const steps = 60;
-    const increment = stat.value / steps;
+    
+    if (targetValue === 0) {
+      setCount(0);
+      return;
+    }
+
+    const increment = targetValue / steps;
     let current = 0;
     const timer = setInterval(() => {
       current += increment;
-      if (current >= stat.value) {
-        setCount(stat.value);
+      if (current >= targetValue) {
+        setCount(targetValue);
         clearInterval(timer);
       } else {
         setCount(Math.floor(current));
       }
     }, duration / steps);
     return () => clearInterval(timer);
-  }, [isVisible, stat.value]);
+  }, [isVisible, targetValue, loading]);
 
   const Icon = iconMap[stat.icon];
 
@@ -61,7 +86,7 @@ export default function StatsCounter({ stat }: { stat: StatItem }) {
         <Icon className="h-7 w-7" />
       </div>
       <span className="text-4xl font-extrabold tracking-tight text-primary-800">
-        {count}
+        {loading ? "..." : count}
         <span className="text-primary-500">{stat.suffix}</span>
       </span>
       <span className="mt-1.5 text-sm font-medium text-gray-500">

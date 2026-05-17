@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function FormProfile({
   profile,
@@ -22,6 +23,12 @@ export default function FormProfile({
     whatsapp_link: profile.whatsapp_link || "",
   });
 
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleChange = (e: any) => {
 
     setForm({
@@ -40,15 +47,23 @@ export default function FormProfile({
 
       await api.put("/profile", form);
 
-      alert("Profile berhasil diupdate");
-
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Profile berhasil diupdate",
+      });
 
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal update profile");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal update profile",
+      });
     }
 
     setLoading(false);
@@ -61,7 +76,8 @@ export default function FormProfile({
         onSubmit={handleSubmit}
         className="space-y-4"
       >
-
+        
+        <label className="block text-sm font-medium text-gray-700">Email</label>
         <input
           type="email"
           name="email"
@@ -70,7 +86,8 @@ export default function FormProfile({
           onChange={handleChange}
           className="w-full border p-4 rounded-xl"
         />
-
+        
+        <label className="block text-sm font-medium text-gray-700">Phone Number</label>
         <input
           type="text"
           name="phone_number"
@@ -80,6 +97,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Whatsapp Number</label>
         <input
           type="text"
           name="Whatsapp_number"
@@ -89,6 +107,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Whatsapp Link</label>
         <input
           type="url"
           name="whatsapp_link"
@@ -98,6 +117,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Email Information</label>
         <textarea
           name="email_information"
           placeholder="Email Information"
@@ -106,6 +126,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl h-24"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Contact Information</label>
         <textarea
           name="contact_information"
           placeholder="Contact Information"
@@ -114,6 +135,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl h-24"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Operational Information</label>
         <textarea
           name="Operational_information"
           placeholder="Operational Information"
@@ -131,6 +153,13 @@ export default function FormProfile({
         </button>
 
       </form>
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );

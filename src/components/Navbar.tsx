@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Leaf } from "lucide-react";
+import icon from "../public/icon.png";
 
 const navLinks = [
   { href: "/", label: "Beranda" },
@@ -31,9 +32,9 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-all duration-300 ${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 shadow-md${
         scrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-primary-900/5"
+          ? "bg-white/50 backdrop-blur-md shadow-lg shadow-primary-900/5"
           : "bg-white"
       }`}
     >
@@ -41,9 +42,7 @@ export default function Navbar() {
         <div className="flex h-16 items-center justify-between md:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 shadow-md shadow-primary-500/30 transition-transform group-hover:scale-105">
-              <Leaf className="h-5 w-5 text-white" />
-            </div>
+              <img src={icon.src} alt="Panti Amanah" className="w-10 h-10 object-cover"/>
             <span className="text-xl font-bold tracking-tight text-primary-800">
               Panti <span className="text-primary-600">Amanah</span>
             </span>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function UploadQris({
   profile,
@@ -13,12 +14,23 @@ export default function UploadQris({
 
   const [loading, setLoading] = useState(false);
 
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error" | "warning";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleUpload = async (e: any) => {
 
     e.preventDefault();
 
     if (!file) {
-      return alert("Pilih file QRIS");
+      setAlertModal({
+        isOpen: true,
+        type: "warning",
+        message: "Pilih file QRIS terlebih dahulu",
+      });
+      return;
     }
 
     setLoading(true);
@@ -40,15 +52,23 @@ export default function UploadQris({
         }
       );
 
-      alert("QRIS berhasil diupload");
-
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "QRIS berhasil diupload",
+      });
 
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal upload QRIS");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal upload QRIS",
+      });
     }
 
     setLoading(false);
@@ -116,6 +136,13 @@ export default function UploadQris({
         </button>
 
       </form>
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );

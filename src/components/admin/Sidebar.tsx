@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 import {
   LayoutDashboard,
@@ -15,78 +16,41 @@ import {
 } from "lucide-react";
 
 export default function Sidebar() {
+  const pathname = usePathname();
+
+  const navItems = [
+    { href: "/admin/dashboard", icon: LayoutDashboard, label: "Dashboard" },
+    { href: "/admin/programs", icon: FolderKanban, label: "Programs" },
+    { href: "/admin/galleries", icon: Image, label: "Galleries" },
+    { href: "/admin/anak-asuh", icon: Users, label: "Anak Asuh" },
+    { href: "/admin/donations", icon: HeartHandshake, label: "Donations" },
+    { href: "/admin/bank-accounts", icon: Banknote, label: "Bank Accounts" },
+    { href: "/admin/locations", icon: MapPin, label: "Locations" },
+    { href: "/admin/profile", icon: UserCircle, label: "Profile" },
+  ];
+
   return (
-    <aside className="w-72 bg-yellow-400 text-white min-h-screen p-6">
+    <aside className="w-72 bg-yellow-500 text-white min-h-screen p-6 fixed overflow-y-auto z-50">
       <h1 className="text-3xl font-bold mb-10">
         Admin Panel
       </h1>
 
-      <nav className="space-y-4">
-
-        <Link
-          href="/admin/dashboard"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <LayoutDashboard size={20} />
-          Dashboard
-        </Link>
-
-        <Link
-          href="/admin/programs"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <FolderKanban size={20} />
-          Programs
-        </Link>
-
-        <Link
-          href="/admin/galleries"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <Image size={20} />
-          Galleries
-        </Link>
-
-        <Link
-          href="/admin/anak-asuh"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <Users size={20} />
-          Anak Asuh
-        </Link>
-
-        <Link
-          href="/admin/donations"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <HeartHandshake size={20} />
-          Donations
-        </Link>
-
-        <Link
-          href="/admin/bank-accounts"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <Banknote size={20} />
-          Bank Accounts
-        </Link>
-
-        <Link
-          href="/admin/locations"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <MapPin size={20} />
-          Locations
-        </Link>
-
-        <Link
-          href="/admin/profile"
-          className="flex items-center gap-3 hover:bg-yellow-500 p-3 rounded-xl"
-        >
-          <UserCircle size={20} />
-          Profile
-        </Link>
-
+      <nav className="space-y-5">
+        {navItems.map((item) => {
+          const isActive = pathname.startsWith(item.href);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex items-center gap-3 p-2 transition-colors ${
+                isActive ? "border-l-3 border-white bg-yellow-700 font-bold" : "hover:bg-yellow-500/50"
+              }`}
+            >
+              <item.icon size={20} />
+              {item.label}
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );

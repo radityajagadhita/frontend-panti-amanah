@@ -61,7 +61,7 @@ export default function DashboardPage() {
       ]);
 
       const donationList =
-        donations.data.data.data || [];
+        donations.data.data || [];
 
       const totalDonationAmount =
         donationList.reduce(
@@ -84,7 +84,7 @@ export default function DashboardPage() {
             ?.length || 0,
 
         anakAsuh:
-          anakAsuh.data
+          anakAsuh.data.data
             ?.length || 0,
 
         donations:
