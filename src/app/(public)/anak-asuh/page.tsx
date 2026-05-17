@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import { Users, Loader2 } from "lucide-react";
 import api from "@/src/lib/api";
-import AnakAsuhCard, {
-  type AnakAsuh,
-} from "./component/anak-asuh_Card";
+import AnakAsuhCard from "./component/anak-asuh_Card";
+import { AnakAsuh } from "@/src/data/AnakAsuh";
 
 export default function AnakAsuhPage() {
   const [children, setChildren] = useState<AnakAsuh[]>([]);
@@ -18,7 +17,7 @@ export default function AnakAsuhPage() {
         setLoading(true);
         setError(null);
         const response = await api.get("/anak-asuh");
-        setChildren(response.data || []);
+        setChildren(response.data.data || []);
       } catch (err) {
         console.error(err);
         setError("Gagal memuat data anak asuh. Silakan coba lagi.");

@@ -10,7 +10,6 @@ interface AlertModalProps {
   type?: AlertType;
   title?: string;
   message?: string;
-  /** Label for the close/confirm button */
   confirmLabel?: string;
 }
 

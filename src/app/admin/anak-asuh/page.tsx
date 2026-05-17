@@ -22,7 +22,7 @@ export default function AnakAsuhPage() {
 
       const response = await api.get("/anak-asuh");
 
-      setChildren(response.data || []);
+      setChildren(response.data.data || []);
 
     } catch (error) {
       console.log(error);

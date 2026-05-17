@@ -135,6 +135,9 @@ export default function Footer() {
                   <span>Memuat...</span>
                 </li>
               )}
+              <li className="flex items-center gap-3 text-sm text-primary-200/70">
+                <span className="font-semibold">IG:</span> @panti.amanah
+              </li>
             </ul>
           </div>
         </div>

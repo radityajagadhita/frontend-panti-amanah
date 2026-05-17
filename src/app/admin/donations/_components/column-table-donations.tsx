@@ -1,24 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import api from "../../../../lib/api";
 
-import DialogDetailDonation
-from "./dialog-detail-donation";
+import DialogDetailDonation from "./dialog-detail-donation";
+import ConfirmModal from "../../../../components/admin/confirmModal";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function ColumnTableDonations({
   data,
   onSuccess,
 }: any) {
 
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleDelete = async (
     id: number
   ) => {
-
-    const confirmDelete = confirm(
-      "Yakin hapus donation?"
-    );
-
-    if (!confirmDelete) return;
 
     try {
 
@@ -26,12 +30,22 @@ export default function ColumnTableDonations({
         `/donations/${id}`
       );
 
-      alert("Donation berhasil dihapus");
-
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Donation berhasil dihapus",
+      });
 
     } catch (error) {
       console.log(error);
+
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus donation",
+      });
     }
   };
 
@@ -126,9 +140,7 @@ export default function ColumnTableDonations({
 
                   <button
                     onClick={() =>
-                      handleDelete(
-                        donation.id
-                      )
+                      setDeleteId(donation.id)
                     }
                     className="bg-red-500 text-white px-4 py-2 rounded-xl"
                   >
@@ -147,6 +159,23 @@ export default function ColumnTableDonations({
 
         </table>
       </div>
+
+      <ConfirmModal
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={() => {
+          if (deleteId !== null) handleDelete(deleteId);
+        }}
+        title="Hapus Donation"
+        message="Apakah Anda yakin ingin menghapus data donation ini? Tindakan ini tidak dapat dibatalkan."
+      />
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );

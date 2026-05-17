@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogEditProgram({
   program,
@@ -10,8 +11,14 @@ export default function DialogEditProgram({
 
   const [open, setOpen] = useState(false);
 
-    const [title, setTitle] = useState(program?.title || "");
-    const [description, setDescription] = useState(program?.description || "");
+  const [title, setTitle] = useState(program?.title || "");
+  const [description, setDescription] = useState(program?.description || "");
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleUpdate = async (e: any) => {
 
@@ -24,14 +31,24 @@ export default function DialogEditProgram({
         description,
       });
 
-      alert("Program berhasil diupdate");
-
       setOpen(false);
 
       onSuccess();
 
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Program berhasil diupdate",
+      });
+
     } catch (error) {
       console.log(error);
+
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal mengupdate program",
+      });
     }
   };
 
@@ -99,6 +116,13 @@ export default function DialogEditProgram({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

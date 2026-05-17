@@ -4,6 +4,7 @@ import { useState }
 from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogEditLocation({
   location,
@@ -23,6 +24,12 @@ export default function DialogEditLocation({
       google_maps_url:
         location.google_maps_url || "",
     });
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleChange = (
     e: any
@@ -50,13 +57,15 @@ export default function DialogEditLocation({
         form
       );
 
-      alert(
-        "Location berhasil diupdate"
-      );
-
       setOpen(false);
 
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Location berhasil diupdate",
+      });
 
     } catch (error: any) {
 
@@ -64,9 +73,11 @@ export default function DialogEditLocation({
         error.response?.data
       );
 
-      alert(
-        "Gagal update location"
-      );
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal update location",
+      });
     }
 
     setLoading(false);
@@ -144,6 +155,13 @@ export default function DialogEditLocation({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

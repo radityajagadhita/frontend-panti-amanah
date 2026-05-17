@@ -5,6 +5,7 @@ import api from "../../../../lib/api";
 
 import DialogEditProgram from "./dialog-edit-program";
 import ConfirmModal from "../../../../components/admin/confirmModal";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function ColumnTablePrograms({
   data,
@@ -12,13 +13,28 @@ export default function ColumnTablePrograms({
 }: any) {
   const [deleteId, setDeleteId] = useState<number | null>(null);
 
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleDelete = async (id: number) => {
     try {
       await api.delete(`/programs/${id}`);
-      alert("Program berhasil dihapus");
       onSuccess();
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Program berhasil dihapus",
+      });
     } catch (error) {
       console.log(error);
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus program",
+      });
     }
   };
 
@@ -95,13 +111,20 @@ export default function ColumnTablePrograms({
       </div>
 
       <ConfirmModal
-        isOpen={deleteId !== null}  
+        isOpen={deleteId !== null}
         onClose={() => setDeleteId(null)}
         onConfirm={() => {
           if (deleteId !== null) handleDelete(deleteId);
         }}
         title="Hapus Program"
         message="Apakah Anda yakin ingin menghapus program ini? Tindakan ini tidak dapat dibatalkan."
+      />
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
       />
     </div>
   );

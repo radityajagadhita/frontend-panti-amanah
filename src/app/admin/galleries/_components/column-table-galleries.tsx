@@ -1,24 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import api from "../../../../lib/api";
 
-import DialogEditGalleries
-from "./dialog-edit-galleries";
+import DialogEditGalleries from "./dialog-edit-galleries";
+import ConfirmModal from "../../../../components/admin/confirmModal";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function ColumnTableGalleries({
   data,
   onSuccess,
 }: any) {
 
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleDelete = async (
     id: number
   ) => {
-
-    const confirmDelete = confirm(
-      "Yakin hapus gallery?"
-    );
-
-    if (!confirmDelete) return;
 
     try {
 
@@ -26,15 +30,23 @@ export default function ColumnTableGalleries({
         `/galleries/${id}`
       );
 
-      alert(
-        "Gallery berhasil dihapus"
-      );
-
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Gallery berhasil dihapus",
+      });
 
     } catch (error) {
 
       console.log(error);
+
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus gallery",
+      });
     }
   };
 
@@ -77,9 +89,7 @@ export default function ColumnTableGalleries({
 
               <button
                 onClick={() =>
-                  handleDelete(
-                    gallery.id
-                  )
+                  setDeleteId(gallery.id)
                 }
                 className="bg-red-500 text-white px-4 py-2 rounded-xl w-full"
               >
@@ -93,6 +103,23 @@ export default function ColumnTableGalleries({
         </div>
 
       ))}
+
+      <ConfirmModal
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={() => {
+          if (deleteId !== null) handleDelete(deleteId);
+        }}
+        title="Hapus Gallery"
+        message="Apakah Anda yakin ingin menghapus gallery ini? Tindakan ini tidak dapat dibatalkan."
+      />
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );

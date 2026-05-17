@@ -1,31 +1,46 @@
 "use client";
 
+import { useState } from "react";
 import api from "../../../../lib/api";
 import DialogEditAnakAsuh from "./dialog-edit-anak-asuh";
+import ConfirmModal from "../../../../components/admin/confirmModal";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function ColumnTableAnakAsuh({
   data,
   onSuccess,
 }: any) {
 
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleDelete = async (id: number) => {
-
-    const confirmDelete = confirm(
-      "Yakin hapus anak asuh?"
-    );
-
-    if (!confirmDelete) return;
 
     try {
 
       await api.delete(`/anak-asuh/${id}`);
 
-      alert("Berhasil dihapus");
-
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Anak asuh berhasil dihapus",
+      });
 
     } catch (error) {
       console.log(error);
+
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus anak asuh",
+      });
     }
   };
 
@@ -33,7 +48,7 @@ export default function ColumnTableAnakAsuh({
     <div className="bg-white rounded-2xl shadow overflow-hidden">
       <div className="overflow-y-auto flex-1 scrollbar-thin">
 
-      <table className="w-full">
+      <table className="w-full border border-gray-300">
 
         <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm">
 
@@ -112,7 +127,7 @@ export default function ColumnTableAnakAsuh({
                     />
 
                     <button
-                    onClick={() => handleDelete(child.id)}
+                    onClick={() => setDeleteId(child.id)}
                     className="bg-red-500 text-white px-4 py-2 rounded-xl"
                     >
                     Delete
@@ -130,6 +145,23 @@ export default function ColumnTableAnakAsuh({
 
         </table>
       </div>
+
+      <ConfirmModal
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={() => {
+          if (deleteId !== null) handleDelete(deleteId);
+        }}
+        title="Hapus Anak Asuh"
+        message="Apakah Anda yakin ingin menghapus data anak asuh ini? Tindakan ini tidak dapat dibatalkan."
+      />
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );

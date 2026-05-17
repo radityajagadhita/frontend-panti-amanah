@@ -1,21 +1,28 @@
 "use client";
 
+import { useState } from "react";
 import api from "../../../../lib/api";
+
+import ConfirmModal from "../../../../components/admin/confirmModal";
+import AlertModal from "../../../../components/admin/alertModal";
+import DialogEditBankAccount from "./dialog-edit-bank-account";
 
 export default function ColumnTableBankAccounts({
   data,
   onSuccess,
 }: any) {
 
+  const [deleteId, setDeleteId] = useState<number | null>(null);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleDelete = async (
     id: number
   ) => {
-
-    const confirmDelete = confirm(
-      "Hapus rekening?"
-    );
-
-    if (!confirmDelete) return;
 
     try {
 
@@ -25,9 +32,21 @@ export default function ColumnTableBankAccounts({
 
       onSuccess();
 
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Rekening berhasil dihapus",
+      });
+
     } catch (error) {
 
       console.log(error);
+
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus rekening",
+      });
     }
   };
 
@@ -84,14 +103,23 @@ export default function ColumnTableBankAccounts({
 
               <td className="p-4">
 
-                <button
-                  onClick={() =>
-                    handleDelete(bank.id)
-                  }
-                  className="bg-red-500 text-white px-4 py-2 rounded-xl"
-                >
-                  Delete
-                </button>
+                <div className="flex gap-3">
+
+                  <DialogEditBankAccount
+                    bank={bank}
+                    onSuccess={onSuccess}
+                  />
+
+                  <button
+                    onClick={() =>
+                      setDeleteId(bank.id)
+                    }
+                    className="bg-red-500 text-white px-4 py-2 rounded-xl"
+                  >
+                    Delete
+                  </button>
+
+                </div>
 
               </td>
 
@@ -103,6 +131,23 @@ export default function ColumnTableBankAccounts({
 
         </table>
       </div>
+
+      <ConfirmModal
+        isOpen={deleteId !== null}
+        onClose={() => setDeleteId(null)}
+        onConfirm={() => {
+          if (deleteId !== null) handleDelete(deleteId);
+        }}
+        title="Hapus Rekening"
+        message="Apakah Anda yakin ingin menghapus rekening ini? Tindakan ini tidak dapat dibatalkan."
+      />
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );

@@ -2,7 +2,7 @@ export interface AnakAsuh {
   id: number;
   name: string;
   age: number;
-  gender: string; // "L" | "P"
+  gender: string; 
   education: string;
   photo_url?: string | null;
 }

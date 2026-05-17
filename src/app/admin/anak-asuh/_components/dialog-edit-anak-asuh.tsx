@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogEditAnakAsuh({
   child,
@@ -23,6 +24,12 @@ export default function DialogEditAnakAsuh({
   const [photo, setPhoto] = useState<any>(null);
 
   const [loading, setLoading] = useState(false);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleUpdate = async (e: any) => {
 
@@ -53,17 +60,25 @@ export default function DialogEditAnakAsuh({
         }
       );
 
-      alert("Data berhasil diupdate");
-
       setOpen(false);
 
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Data berhasil diupdate",
+      });
 
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal update");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal update data anak asuh",
+      });
     }
 
     setLoading(false);
@@ -165,6 +180,13 @@ export default function DialogEditAnakAsuh({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogEditGalleries({
   gallery,
@@ -25,6 +26,12 @@ export default function DialogEditGalleries({
 
   const [loading, setLoading] =
     useState(false);
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleSubmit = async (
     e: any
@@ -68,13 +75,15 @@ export default function DialogEditGalleries({
         }
       );
 
-      alert(
-        "Gallery berhasil diupdate"
-      );
-
       setOpen(false);
 
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Gallery berhasil diupdate",
+      });
 
     } catch (error: any) {
 
@@ -82,9 +91,11 @@ export default function DialogEditGalleries({
         error.response?.data
       );
 
-      alert(
-        "Gagal update gallery"
-      );
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal update gallery",
+      });
     }
 
     setLoading(false);
@@ -190,6 +201,13 @@ export default function DialogEditGalleries({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

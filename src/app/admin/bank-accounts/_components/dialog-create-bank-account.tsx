@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function DialogCreateBankAccount({
   onSuccess,
@@ -18,6 +19,12 @@ export default function DialogCreateBankAccount({
     account_holder: "",
     account_number: "",
   });
+
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
 
   const handleChange = (e: any) => {
 
@@ -43,13 +50,15 @@ export default function DialogCreateBankAccount({
         form
       );
 
-      alert(
-        "Bank account berhasil dibuat"
-      );
-
       setOpen(false);
 
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Bank account berhasil dibuat",
+      });
 
     } catch (error: any) {
 
@@ -57,9 +66,11 @@ export default function DialogCreateBankAccount({
         error.response?.data
       );
 
-      alert(
-        "Gagal create bank account"
-      );
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal create bank account",
+      });
     }
 
     setLoading(false);
@@ -146,6 +157,13 @@ export default function DialogCreateBankAccount({
         </div>
 
       )}
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </>
   );

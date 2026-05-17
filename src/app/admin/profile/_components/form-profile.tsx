@@ -3,6 +3,7 @@
 import { useState } from "react";
 
 import api from "../../../../lib/api";
+import AlertModal from "../../../../components/admin/alertModal";
 
 export default function FormProfile({
   profile,
@@ -22,6 +23,12 @@ export default function FormProfile({
     whatsapp_link: profile.whatsapp_link || "",
   });
 
+  const [alertModal, setAlertModal] = useState<{
+    isOpen: boolean;
+    type: "success" | "error";
+    message: string;
+  }>({ isOpen: false, type: "success", message: "" });
+
   const handleChange = (e: any) => {
 
     setForm({
@@ -40,15 +47,23 @@ export default function FormProfile({
 
       await api.put("/profile", form);
 
-      alert("Profile berhasil diupdate");
-
       onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "Profile berhasil diupdate",
+      });
 
     } catch (error: any) {
 
       console.log(error.response?.data);
 
-      alert("Gagal update profile");
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal update profile",
+      });
     }
 
     setLoading(false);
@@ -138,6 +153,13 @@ export default function FormProfile({
         </button>
 
       </form>
+
+      <AlertModal
+        isOpen={alertModal.isOpen}
+        onClose={() => setAlertModal((s) => ({ ...s, isOpen: false }))}
+        type={alertModal.type}
+        message={alertModal.message}
+      />
 
     </div>
   );
