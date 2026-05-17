@@ -61,7 +61,8 @@ export default function FormProfile({
         onSubmit={handleSubmit}
         className="space-y-4"
       >
-
+        
+        <label className="block text-sm font-medium text-gray-700">Email</label>
         <input
           type="email"
           name="email"
@@ -70,7 +71,8 @@ export default function FormProfile({
           onChange={handleChange}
           className="w-full border p-4 rounded-xl"
         />
-
+        
+        <label className="block text-sm font-medium text-gray-700">Phone Number</label>
         <input
           type="text"
           name="phone_number"
@@ -80,6 +82,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Whatsapp Number</label>
         <input
           type="text"
           name="Whatsapp_number"
@@ -89,6 +92,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Whatsapp Link</label>
         <input
           type="url"
           name="whatsapp_link"
@@ -98,6 +102,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Email Information</label>
         <textarea
           name="email_information"
           placeholder="Email Information"
@@ -106,6 +111,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl h-24"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Contact Information</label>
         <textarea
           name="contact_information"
           placeholder="Contact Information"
@@ -114,6 +120,7 @@ export default function FormProfile({
           className="w-full border p-4 rounded-xl h-24"
         />
 
+        <label className="block text-sm font-medium text-gray-700">Operational Information</label>
         <textarea
           name="Operational_information"
           placeholder="Operational Information"

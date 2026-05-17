@@ -1,5 +1,16 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Leaf, MapPin, Phone, Mail } from "lucide-react";
+import { Leaf, MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import api from "@/src/lib/api";
+
+interface SiteProfile {
+  phone_number?: string;
+  Whatsapp_number?: string;
+  email?: string;
+  whatsapp_link?: string | null;
+}
 
 const quickLinks = [
   { href: "/", label: "Beranda" },
@@ -11,6 +22,23 @@ const quickLinks = [
 ];
 
 export default function Footer() {
+  const [profile, setProfile] = useState<SiteProfile | null>(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await api.get("/profile");
+        const data = Array.isArray(res.data)
+          ? res.data[0]
+          : res.data?.data ?? res.data;
+        setProfile(data ?? null);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProfile();
+  }, []);
+
   return (
     <footer className="bg-primary-900 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -58,18 +86,55 @@ export default function Footer() {
               Hubungi Kami
             </h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-3 text-sm text-primary-200/70">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary-400" />
-                <span>Jl. Kebaikan No. 123, Kec. Harapan, Kota Amanah, Indonesia</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-primary-200/70">
-                <Phone className="h-4 w-4 shrink-0 text-primary-400" />
-                <span>+62 812 3456 7890</span>
-              </li>
-              <li className="flex items-center gap-3 text-sm text-primary-200/70">
-                <Mail className="h-4 w-4 shrink-0 text-primary-400" />
-                <span>info@pantiamanah.org</span>
-              </li>
+              {/* Phone */}
+              {profile?.phone_number ? (
+                <li className="flex items-center gap-3 text-sm text-primary-200/70">
+                  <Phone className="h-4 w-4 shrink-0 text-primary-400" />
+                  <span>{profile.phone_number}</span>
+                </li>
+              ) : (
+                <li className="flex items-center gap-3 text-sm text-primary-200/40 animate-pulse">
+                  <Phone className="h-4 w-4 shrink-0 text-primary-600" />
+                  <span>Memuat...</span>
+                </li>
+              )}
+
+              {/* WhatsApp */}
+              {profile?.Whatsapp_number && (
+                <li className="flex items-center gap-3 text-sm text-primary-200/70">
+                  <MessageCircle className="h-4 w-4 shrink-0 text-primary-400" />
+                  {profile.whatsapp_link ? (
+                    <a
+                      href={profile.whatsapp_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="hover:text-white transition-colors"
+                    >
+                      {profile.Whatsapp_number}
+                    </a>
+                  ) : (
+                    <span>{profile.Whatsapp_number}</span>
+                  )}
+                </li>
+              )}
+
+              {/* Email */}
+              {profile?.email ? (
+                <li className="flex items-center gap-3 text-sm text-primary-200/70">
+                  <Mail className="h-4 w-4 shrink-0 text-primary-400" />
+                  <a
+                    href={`mailto:${profile.email}`}
+                    className="hover:text-white transition-colors"
+                  >
+                    {profile.email}
+                  </a>
+                </li>
+              ) : (
+                <li className="flex items-center gap-3 text-sm text-primary-200/40 animate-pulse">
+                  <Mail className="h-4 w-4 shrink-0 text-primary-600" />
+                  <span>Memuat...</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

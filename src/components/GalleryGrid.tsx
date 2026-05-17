@@ -1,65 +1,75 @@
 "use client";
 
-import { useState } from "react";
-import { Camera, BookOpen, TreePalm, Moon, Users } from "lucide-react";
-import {
-  galleryItems,
-  galleryCategories,
-  type GalleryCategory,
-  type GalleryItem,
-} from "@/src/data/mockGallery";
+import { Camera } from "lucide-react";
+import { BASE_URL } from "@/src/lib/api";
 
-const categoryIcons: Record<string, React.ReactNode> = {
-  Pendidikan: <BookOpen className="h-6 w-6" />,
-  Rekreasi: <TreePalm className="h-6 w-6" />,
-  Ibadah: <Moon className="h-6 w-6" />,
-  Kegiatan: <Users className="h-6 w-6" />,
-};
+export interface GalleryItem {
+  id?: number;
+  title: string;
+  image_path: string;
+  uploaded_at: string;
+}
 
-const categoryGradients: Record<string, string> = {
-  Pendidikan: "from-blue-400 to-teal-500",
-  Rekreasi: "from-amber-400 to-orange-500",
-  Ibadah: "from-purple-400 to-indigo-500",
-  Kegiatan: "from-primary-400 to-emerald-500",
-};
+interface GalleryGridProps {
+  items: GalleryItem[];
+}
 
-function GalleryCard({ item }: { item: GalleryItem }) {
+const gradients = [
+  "from-primary-400 to-emerald-500",
+  "from-teal-400 to-primary-500",
+  "from-blue-400 to-teal-500",
+  "from-amber-400 to-orange-500",
+  "from-purple-400 to-indigo-500",
+  "from-green-400 to-primary-600",
+  "from-rose-400 to-pink-500",
+  "from-sky-400 to-blue-500",
+];
+
+
+
+function GalleryCard({ item, index }: { item: GalleryItem; index: number }) {
   const heightClass =
-    item.aspectRatio === "portrait"
-      ? "h-80"
-      : item.aspectRatio === "square"
-        ? "h-64"
-        : "h-56";
+    index % 3 === 0 ? "h-72" : index % 3 === 1 ? "h-56" : "h-64";
 
-  const gradient = categoryGradients[item.category];
-  const icon = categoryIcons[item.category];
+  const gradient = gradients[index % gradients.length];
+
+  const imageUrl = item.image_path
+    ? `${BASE_URL}/storage/${item.image_path}`
+    : null;
+
+  const formattedDate = new Date(item.uploaded_at).toLocaleDateString(
+    "id-ID",
+    { day: "numeric", month: "long", year: "numeric" }
+  );
 
   return (
     <div
       className={`group relative mb-4 overflow-hidden rounded-2xl ${heightClass} break-inside-avoid`}
     >
-      {/* Gradient placeholder */}
-      <div
-        className={`absolute inset-0 bg-gradient-to-br ${gradient} flex items-center justify-center text-white/30`}
-      >
-        {icon}
-      </div>
-
-      {/* Hover overlay */}
-      <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/60 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="translate-y-2 transition-transform duration-300 group-hover:translate-y-0">
-          <span className="mb-1 inline-block rounded-full bg-white/20 backdrop-blur-sm px-2.5 py-0.5 text-xs font-medium text-white">
-            {item.category}
-          </span>
-          <p className="text-sm font-semibold text-white">{item.caption}</p>
-          <p className="text-xs text-white/70">
-            {new Date(item.date).toLocaleDateString("id-ID", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
+      {/* Image or gradient fallback */}
+      {imageUrl ? (
+        <img
+          src={imageUrl}
+          alt={item.title}
+          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      ) : (
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${gradient} flex items-center justify-center text-white/30`}
+        >
+          <Camera className="h-10 w-10" />
         </div>
+      )}
+
+      {/* Dark overlay on hover */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+      {/* Caption on hover */}
+      <div className="absolute inset-x-0 bottom-0 flex flex-col justify-end p-4 translate-y-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+        <p className="text-sm font-semibold text-white leading-snug">
+          {item.title}
+        </p>
+        <p className="text-xs text-white/70 mt-0.5">{formattedDate}</p>
       </div>
 
       {/* Camera icon on hover */}
@@ -70,46 +80,21 @@ function GalleryCard({ item }: { item: GalleryItem }) {
   );
 }
 
-export default function GalleryGrid() {
-  const [activeCategory, setActiveCategory] = useState<GalleryCategory>("Semua");
-
-  const filtered =
-    activeCategory === "Semua"
-      ? galleryItems
-      : galleryItems.filter((item) => item.category === activeCategory);
+export default function GalleryGrid({ items }: GalleryGridProps) {
+  if (items.length === 0) {
+    return (
+      <div className="py-20 text-center">
+        <Camera className="mx-auto h-12 w-12 text-gray-300" />
+        <p className="mt-4 text-gray-400">Belum ada foto di galeri</p>
+      </div>
+    );
+  }
 
   return (
-    <div>
-      {/* Filter Tabs */}
-      <div className="mb-10 flex flex-wrap items-center justify-center gap-2">
-        {galleryCategories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => setActiveCategory(cat)}
-            className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-200 ${
-              activeCategory === cat
-                ? "bg-primary-600 text-white shadow-md shadow-primary-500/25"
-                : "bg-white text-gray-600 border border-gray-200 hover:border-primary-300 hover:text-primary-700"
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
-
-      {/* Masonry Grid */}
-      <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
-        {filtered.map((item) => (
-          <GalleryCard key={item.id} item={item} />
-        ))}
-      </div>
-
-      {filtered.length === 0 && (
-        <div className="py-20 text-center">
-          <Camera className="mx-auto h-12 w-12 text-gray-300" />
-          <p className="mt-4 text-gray-400">Belum ada foto untuk kategori ini</p>
-        </div>
-      )}
+    <div className="columns-1 gap-4 sm:columns-2 lg:columns-3">
+      {items.map((item, i) => (
+        <GalleryCard key={item.id ?? i} item={item} index={i} />
+      ))}
     </div>
   );
 }

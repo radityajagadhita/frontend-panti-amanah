@@ -102,7 +102,7 @@ export default function ColumnTableDonations({
 
                 <img
                   src={
-                    donation.payment_proof_url
+                    donation.payment_proof
                   }
                   alt=""
                   className="w-20 h-20 object-cover rounded-xl border"

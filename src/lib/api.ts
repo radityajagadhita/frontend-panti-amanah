@@ -22,3 +22,5 @@ api.interceptors.request.use(
 );
 
 export default api;
+
+export const BASE_URL = (api.defaults.baseURL ?? "").replace("/api", "");
