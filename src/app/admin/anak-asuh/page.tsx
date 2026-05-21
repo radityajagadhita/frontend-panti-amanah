@@ -8,21 +8,29 @@ import DialogCreateAnakAsuh from "./_components/dialog-create-anak-asuh";
 
 import ColumnTableAnakAsuh from "./_components/column-table-anak-asuh";
 
+import { AnakAsuh } from "@/src/data/AnakAsuh";
+
 export default function AnakAsuhPage() {
 
-  const [children, setChildren] = useState([]);
+  const [children, setChildren] = useState<AnakAsuh[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+  const [total, setTotal] = useState(0);
 
   useEffect(() => {
-    fetchChildren();
-  }, []);
+    fetchChildren(currentPage);
+  }, [currentPage]);
 
-  const fetchChildren = async () => {
+  const fetchChildren = async (page: number = 1) => {
 
     try {
 
-      const response = await api.get("/anak-asuh");
+      const response = await api.get(`/anak-asuh/pagination?page=${page}`);
 
-      setChildren(response.data.data || []);
+      setChildren(response.data.data.data || []);
+      setCurrentPage(response.data.data.current_page || 1);
+      setPerPage(response.data.data.per_page || 10);
+      setTotal(response.data.data.total || 0);
 
     } catch (error) {
       console.log(error);
@@ -47,14 +55,18 @@ export default function AnakAsuhPage() {
         </div>
 
         <DialogCreateAnakAsuh
-          onSuccess={fetchChildren}
+          onSuccess={() => fetchChildren(currentPage)}
         />
 
       </div>
 
       <ColumnTableAnakAsuh
         data={children}
-        onSuccess={fetchChildren}
+        onSuccess={() => fetchChildren(currentPage)}
+        currentPage={currentPage}
+        perPage={perPage}
+        total={total}
+        onPageChange={(page) => setCurrentPage(page)}
       />
 
     </div>

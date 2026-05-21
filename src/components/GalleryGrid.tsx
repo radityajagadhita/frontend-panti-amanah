@@ -37,10 +37,6 @@ function GalleryCard({ item, index }: { item: GalleryItem; index: number }) {
     ? `${BASE_URL}/storage/${item.image_path}`
     : null;
 
-  const formattedDate = new Date(item.uploaded_at).toLocaleDateString(
-    "id-ID",
-    { day: "numeric", month: "long", year: "numeric" }
-  );
 
   return (
     <div
@@ -69,7 +65,6 @@ function GalleryCard({ item, index }: { item: GalleryItem; index: number }) {
         <p className="text-sm font-semibold text-white leading-snug">
           {item.title}
         </p>
-        <p className="text-xs text-white/70 mt-0.5">{formattedDate}</p>
       </div>
 
       {/* Camera icon on hover */}

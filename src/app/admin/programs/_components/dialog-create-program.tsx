@@ -117,9 +117,9 @@ export default function DialogCreateProgram({
                 required
               />
 
-              <label>Gambar (URL atau nama file)</label>
+              <label>Gambar (Jika ada)</label>
               <input
-                type="text"
+                type="file"
                 placeholder="Images"
                 className="w-full border p-4 rounded-xl"
                 value={images}

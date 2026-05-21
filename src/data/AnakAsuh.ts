@@ -4,6 +4,8 @@ export interface AnakAsuh {
   age: number;
   gender: string; 
   education: string;
+  education_level: string;
+  status: string;
   photo_url?: string | null;
 }
 

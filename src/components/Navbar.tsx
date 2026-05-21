@@ -32,11 +32,10 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`sticky top-0 z-50 w-full transition-all duration-300 shadow-md${
+      className={`sticky top-0 z-50 w-full transition-all duration-300 shadow-md bg-white${
         scrolled
-          ? "bg-white/50 backdrop-blur-md shadow-lg shadow-primary-900/5"
-          : "bg-white"
-      }`}
+          && "bg-white/80 backdrop-blur-md shadow-lg shadow-primary-900/5" 
+          }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between md:h-20">

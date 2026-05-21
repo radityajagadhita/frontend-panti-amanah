@@ -86,7 +86,7 @@ export default function StatsCounter({ stat }: { stat: StatItem }) {
         <Icon className="h-7 w-7" />
       </div>
       <span className="text-4xl font-extrabold tracking-tight text-primary-800">
-        {loading ? "..." : count}
+        {loading ? "-" : count}
         <span className="text-primary-500">{stat.suffix}</span>
       </span>
       <span className="mt-1.5 text-sm font-medium text-gray-500">

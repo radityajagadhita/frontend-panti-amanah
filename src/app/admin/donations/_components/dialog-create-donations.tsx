@@ -168,45 +168,56 @@ export default function DialogCreateDonations({
                 className="w-full border p-4 rounded-xl"
               />
 
+              <input
+                type="text"
+                name="tujuan"
+                placeholder="Tujuan Donasi"
+                value={form.tujuan}
+                onChange={handleChange}
+                className="w-full border p-4 rounded-xl"
+              />
+
               <label> Metode Pembayaran</label>
               <select
+                name="payment_method"
                 className="w-full border p-4 rounded-xl"
                 value={form.payment_method}
                 onChange={handleChange}
               >
+                <option value="" disabled>Pilih Metode Pembayaran</option>
                 <option value="bank_transfer">Transfer bank</option>
-                <option value="SD">Cash</option>
-                <option value="SMP">Qris</option>
-                <option value="SMA">Lainnya</option>
+                <option value="cash">Cash</option>
+                <option value="qris">Qris</option>
+                <option value="lainnya">Lainnya</option>
               </select>
 
-              <select name="payment_method" id=""></select>
+              {form.payment_method === "bank_transfer" && (
+                <select
+                  name="bank_account_id"
+                  value={
+                    form.bank_account_id
+                  }
+                  onChange={handleChange}
+                  className="w-full border p-4 rounded-xl"
+                >
 
-              <select
-                name="bank_account_id"
-                value={
-                  form.bank_account_id
-                }
-                onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
-              >
-
-                <option value="">
-                  Pilih Rekening
-                </option>
-
-                {banks.map((bank: any) => (
-
-                  <option
-                    key={bank.id}
-                    value={bank.id}
-                  >
-                    {bank.bank_name}
+                  <option value="">
+                    Pilih Rekening
                   </option>
 
-                ))}
+                  {banks.map((bank: any) => (
 
-              </select>
+                    <option
+                      key={bank.id}
+                      value={bank.id}
+                    >
+                      {bank.bank_name}
+                    </option>
+
+                  ))}
+
+                </select>
+              )}
 
               <input
                 type="number"

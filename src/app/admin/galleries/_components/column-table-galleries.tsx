@@ -75,7 +75,12 @@ export default function ColumnTableGalleries({
               </h1>
 
               <p className="text-gray-500 text-sm">
-                {gallery.uploaded_at}
+                {new Date(
+                  gallery.uploaded_at
+                ).toLocaleString("id-ID", {
+                  dateStyle: "full",
+                  timeStyle: "short",
+                })}
               </p>
 
             </div>

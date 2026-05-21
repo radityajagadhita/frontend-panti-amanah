@@ -14,12 +14,8 @@ export default function FormProfile({
 
   const [form, setForm] = useState({
     email: profile.email || "",
-    email_information: profile.email_information || "",
     phone_number: profile.phone_number || "",
     Whatsapp_number: profile.Whatsapp_number || "",
-    contact_information: profile.contact_information || "",
-    Operational_information:
-      profile.Operational_information || "",
     whatsapp_link: profile.whatsapp_link || "",
   });
 
@@ -115,33 +111,6 @@ export default function FormProfile({
           value={form.whatsapp_link}
           onChange={handleChange}
           className="w-full border p-4 rounded-xl"
-        />
-
-        <label className="block text-sm font-medium text-gray-700">Email Information</label>
-        <textarea
-          name="email_information"
-          placeholder="Email Information"
-          value={form.email_information}
-          onChange={handleChange}
-          className="w-full border p-4 rounded-xl h-24"
-        />
-
-        <label className="block text-sm font-medium text-gray-700">Contact Information</label>
-        <textarea
-          name="contact_information"
-          placeholder="Contact Information"
-          value={form.contact_information}
-          onChange={handleChange}
-          className="w-full border p-4 rounded-xl h-24"
-        />
-
-        <label className="block text-sm font-medium text-gray-700">Operational Information</label>
-        <textarea
-          name="Operational_information"
-          placeholder="Operational Information"
-          value={form.Operational_information}
-          onChange={handleChange}
-          className="w-full border p-4 rounded-xl h-24"
         />
 
         <button

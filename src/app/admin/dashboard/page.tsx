@@ -1,12 +1,10 @@
 "use client";
 
 import api from "../../../lib/api";
-
 import {
   useEffect,
   useState,
 } from "react";
-
 import {
   Images,
   HeartHandshake,
@@ -14,7 +12,6 @@ import {
   FolderKanban,
   Wallet,
 } from "lucide-react";
-
 import {
   BarChart,
   Bar,
@@ -23,6 +20,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
+import { Donation } from "../../../data/Donation";
 
 export default function DashboardPage() {
 
@@ -38,7 +36,7 @@ export default function DashboardPage() {
   const [
     recentDonations,
     setRecentDonations
-  ] = useState([]);
+  ] = useState<Donation[]>([]);
 
   useEffect(() => {
     fetchData();
@@ -94,7 +92,7 @@ export default function DashboardPage() {
       });
 
       setRecentDonations(
-        donationList
+        donationList as Donation[]
       );
 
     } catch (error) {
@@ -107,12 +105,10 @@ export default function DashboardPage() {
   Object.values(
 
     recentDonations.reduce(
-      (acc: any, item: any) => {
+      (acc: any, item: Donation) => {
 
         const bank =
-          item.bank_account
-            ?.bank_name
-          || "Unknown";
+          item.payment_method
 
         if (!acc[bank]) {
 
@@ -299,7 +295,7 @@ export default function DashboardPage() {
                           {
                             donation.bank_account
                               ?.bank_name
-                            || "-"
+                            || donation.payment_method
                           }
                         </p>
 

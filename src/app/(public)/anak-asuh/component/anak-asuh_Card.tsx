@@ -48,7 +48,7 @@ export default function AnakAsuhCard({
 
         {/* Age badge */}
         <div className="absolute top-3 right-3 rounded-full bg-white/90 backdrop-blur-sm px-3 py-1 text-xs font-semibold text-primary-700 shadow-sm">
-          {child.age} Tahun
+          {child.status}
         </div>
       </div>
 
@@ -62,13 +62,13 @@ export default function AnakAsuhCard({
           {/* Gender */}
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <User className="h-4 w-4 shrink-0 text-primary-400" />
-            <span>{child.gender}</span>
+            <span>{child.age} Tahun</span>
           </div>
 
           {/* Education */}
           <div className="flex items-center gap-2 text-sm text-gray-500">
             <GraduationCap className="h-4 w-4 shrink-0 text-primary-400" />
-            <span>{child.education}</span>
+            <span>{child.education} - {child.education_level}</span>
           </div>
         </div>
 

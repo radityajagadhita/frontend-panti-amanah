@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const statDashboard = () => {
     const [data, setData] = useState({
         anakAsuh: 0,
-        tahunBerdiri: 12, // placeholder hardcode
+        tahunBerdiri: 26, // placeholder hardcode
         donatur: 0,
         program: 0,
     });
