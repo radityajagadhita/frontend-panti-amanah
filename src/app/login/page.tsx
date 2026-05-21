@@ -3,21 +3,33 @@
 import { useForm } from "react-hook-form";
 import api from "../../lib/api";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import AlertModal from "@/src/components/admin/alertModal"; 
 
 export default function LoginPage() {
-    useEffect(() => {
-
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    router.push("/admin/dashboard");
-  }
-
-}, []);
-  const { register, handleSubmit } = useForm();
+  const [alertState, setAlertState] = useState({
+    isOpen: false,
+    type: "success" as "success" | "error",
+    title: "",
+    message: "",
+  });
 
   const router = useRouter();
+  const { register, handleSubmit } = useForm();
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/admin/dashboard");
+    }
+  }, [router]);
+
+  const handleAlertClose = () => {
+    setAlertState({ ...alertState, isOpen: false });
+    if (alertState.type === "success") {
+      router.push("/admin/dashboard");
+    }
+  };
 
   const onSubmit = async (data: any) => {
     try {
@@ -26,23 +38,25 @@ export default function LoginPage() {
       localStorage.setItem(
         "token",
         response.data.access_token
-        );
+      );
 
-      alert("Login berhasil");
-
-      router.push("/admin/dashboard");
+      setAlertState({
+        isOpen: true,
+        type: "success",
+        title: "Berhasil",
+        message: "Login berhasil, mengalihkan ke dashboard...",
+      });
 
     } catch (error: any) {
-  console.log(error.response?.data);
+      console.log(error.response?.data);
 
-  alert("Login gagal");
-      }
-      const handleLogout = () => {
-
-  localStorage.removeItem("token");
-
-  router.push("/admin/login");
-};
+      setAlertState({
+        isOpen: true,
+        type: "error",
+        title: "Gagal",
+        message: error.response?.data?.message || "Login gagal. Silakan cek email dan password Anda.",
+      });
+    }
   };
 
   return (
@@ -78,6 +92,14 @@ export default function LoginPage() {
 
         </div>
       </form>
+
+      <AlertModal
+        isOpen={alertState.isOpen}
+        onClose={handleAlertClose}
+        type={alertState.type}
+        title={alertState.title}
+        message={alertState.message}
+      />
     </div>
   );
 }

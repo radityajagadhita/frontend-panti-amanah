@@ -26,7 +26,7 @@ const statDashboard = () => {
                     program: programRes.data.data.length,
                 });
             } catch (error) {
-                console.error("Gagal fetch data dashboard:", error);
+                console.error("Gagal fetch data stats:", error);
             } finally {
                 setLoading(false);
             }

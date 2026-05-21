@@ -20,6 +20,7 @@ export default function DialogCreateDonations({
     donor_name: "",
     phone_number: "",
     tujuan: "",
+    payment_method: "",
     bank_account_id: "",
     amount: "",
   });
@@ -167,14 +168,19 @@ export default function DialogCreateDonations({
                 className="w-full border p-4 rounded-xl"
               />
 
-              <input
-                type="text"
-                name="tujuan"
-                placeholder="Tujuan"
-                value={form.tujuan}
-                onChange={handleChange}
+              <label> Metode Pembayaran</label>
+              <select
                 className="w-full border p-4 rounded-xl"
-              />
+                value={form.payment_method}
+                onChange={handleChange}
+              >
+                <option value="bank_transfer">Transfer bank</option>
+                <option value="SD">Cash</option>
+                <option value="SMP">Qris</option>
+                <option value="SMA">Lainnya</option>
+              </select>
+
+              <select name="payment_method" id=""></select>
 
               <select
                 name="bank_account_id"

@@ -14,7 +14,9 @@ export default function DialogEditAnakAsuh({
 
   const [age, setAge] = useState(child.age);
   const [education, setEducation] = useState(child.education);
-
+  const [educationLevel, setEducationLevel] = useState(child.education_level || "");
+  const [tempatLahir, setTempatLahir] = useState(child.tempat_lahir || "");
+  const [status, setStatus] = useState(child.status || "Dhuafa");
   const [badge, setBadge] = useState(child.badge || "");
 
   const [description, setDescription] = useState(
@@ -43,6 +45,9 @@ export default function DialogEditAnakAsuh({
 
       formData.append("age", age);
       formData.append("education", education);
+      formData.append("education_level", educationLevel);
+      formData.append("tempat_lahir", tempatLahir);
+      formData.append("status", status);
       formData.append("badge", badge);
       formData.append("description", description);
 
@@ -109,24 +114,60 @@ export default function DialogEditAnakAsuh({
               className="space-y-4"
             >
 
+              <label> Umur</label>
               <input
                 type="number"
-                placeholder="Age"
+                placeholder="Umur"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
                 className="w-full border p-4 rounded-xl"
               />
 
+              <label> Pendidikan</label>
+              <select
+                className="w-full border p-4 rounded-xl"
+                value={education}
+                onChange={(e) => setEducation(e.target.value)}
+              >
+                <option value="Tidak Sekolah">Tidak Sekolah</option>
+                <option value="TK">TK</option>
+                <option value="SD">SD</option>
+                <option value="SMP">SMP</option>
+                <option value="SMA">SMA</option>
+                <option value="SMK">SMK</option>
+                <option value="Kuliah">Kuliah</option>
+              </select>
+
+              <label> Tingkat Pendidikan</label>
               <input
                 type="text"
-                placeholder="Education"
-                value={education}
-                onChange={(e) =>
-                  setEducation(e.target.value)
-                }
+                placeholder="Tingkat Pendidikan"
+                value={educationLevel}
+                onChange={(e) => setEducationLevel(e.target.value)}
                 className="w-full border p-4 rounded-xl"
               />
 
+              <label> Tempat Lahir</label>
+              <input
+                type="text"
+                placeholder="Tempat Lahir"
+                value={tempatLahir}
+                onChange={(e) => setTempatLahir(e.target.value)}
+                className="w-full border p-4 rounded-xl"
+              />
+
+              <label> Status</label>
+              <select
+                className="w-full border p-4 rounded-xl"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="Dhuafa">Dhuafa</option>
+                <option value="Yatim">Yatim</option>
+                <option value="Piatu">Piatu</option>
+              </select>
+
+              <label> Badge</label>
               <input
                 type="text"
                 placeholder="Badge"
@@ -135,8 +176,9 @@ export default function DialogEditAnakAsuh({
                 className="w-full border p-4 rounded-xl"
               />
 
+              <label> Deskripsi</label>
               <textarea
-                placeholder="Description"
+                placeholder="Deskripsi"
                 value={description}
                 onChange={(e) =>
                   setDescription(e.target.value)

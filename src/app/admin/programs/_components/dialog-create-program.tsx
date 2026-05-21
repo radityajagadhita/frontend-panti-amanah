@@ -3,6 +3,7 @@
 import { useState } from "react";
 import api from "../../../../lib/api";
 import AlertModal from "../../../../components/admin/alertModal";
+import { time } from "console";
 
 export default function DialogCreateProgram({
   onSuccess,
@@ -12,6 +13,10 @@ export default function DialogCreateProgram({
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [images, setImages] = useState("");
+  const [date, setDate] = useState("");
+  const [location, setLocation] = useState("");
+  const [time, setTime] = useState("");
 
   const [loading, setLoading] = useState(false);
 
@@ -32,12 +37,20 @@ export default function DialogCreateProgram({
       await api.post("/programs", {
         title,
         description,
+        images,
+        date: date || null,
+        location: location || null,
+        time: time || null,
       });
 
       setOpen(false);
 
       setTitle("");
       setDescription("");
+      setImages("");
+      setDate("");
+      setLocation("");
+      setTime("");
 
       onSuccess();
 
@@ -86,6 +99,7 @@ export default function DialogCreateProgram({
               className="space-y-4"
             >
 
+              <label>Judul Program</label>
               <input
                 type="text"
                 placeholder="Program title"
@@ -96,11 +110,45 @@ export default function DialogCreateProgram({
               />
 
               <textarea
-                placeholder="Program description"
+                placeholder="Deskripsi Program"
                 className="w-full border p-4 rounded-xl h-32"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 required
+              />
+
+              <label>Gambar (URL atau nama file)</label>
+              <input
+                type="text"
+                placeholder="Images"
+                className="w-full border p-4 rounded-xl"
+                value={images}
+                onChange={(e) => setImages(e.target.value)}
+              />
+
+              <label>Tanggal</label>
+              <input
+                type="date"
+                className="w-full border p-4 rounded-xl"
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+              />
+
+              <label>Lokasi</label>
+              <input
+                type="text"
+                placeholder="Lokasi"
+                className="w-full border p-4 rounded-xl"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+
+              <label>Waktu</label>
+              <input
+                type="time"
+                className="w-full border p-4 rounded-xl"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
               />
 
               <div className="flex gap-4">

@@ -14,7 +14,10 @@ export default function DialogCreateAnakAsuh({
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [gender, setGender] = useState("Laki-laki");
-  const [education, setEducation] = useState("");
+  const [education, setEducation] = useState("SD");
+  const [educationLevel, setEducationLevel] = useState("");
+  const [tempatLahir, setTempatLahir] = useState("");
+  const [status, setStatus] = useState("Dhuafa");
   const [badge, setBadge] = useState("");
   const [TanggalLahir, setTanggalLahir] = useState("");
   const [description, setDescription] = useState("");
@@ -43,6 +46,9 @@ export default function DialogCreateAnakAsuh({
       formData.append("age", age);
       formData.append("gender", gender);
       formData.append("education", education);
+      formData.append("education_level", educationLevel);
+      formData.append("tempat_lahir", tempatLahir);
+      formData.append("status", status);
       formData.append("badge", badge);
       formData.append("tanggal_lahir", TanggalLahir);
       formData.append("description", description);
@@ -105,7 +111,7 @@ export default function DialogCreateAnakAsuh({
               onSubmit={handleSubmit}
               className="space-y-4"
             >
-
+              <label> Nama Anak</label>
               <input
                 type="text"
                 placeholder="Nama"
@@ -114,6 +120,7 @@ export default function DialogCreateAnakAsuh({
                 onChange={(e) => setName(e.target.value)}
               />
 
+              <label> Nama Anak</label>
               <input
                 type="number"
                 placeholder="Umur"
@@ -122,6 +129,7 @@ export default function DialogCreateAnakAsuh({
                 onChange={(e) => setAge(e.target.value)}
               />
 
+              <label> Jenis Kelamin</label>
               <select
                 className="w-full border p-4 rounded-xl"
                 value={gender}
@@ -130,20 +138,56 @@ export default function DialogCreateAnakAsuh({
                 <option value="Laki-laki">
                   Laki-laki
                 </option>
-
                 <option value="Perempuan">
                   Perempuan
                 </option>
               </select>
 
-              <input
-                type="text"
-                placeholder="Pendidikan"
+              <label> Pendidikan</label>
+              <select
                 className="w-full border p-4 rounded-xl"
                 value={education}
                 onChange={(e) => setEducation(e.target.value)}
+              >
+                <option value="Tidak Sekolah">Tidak Sekolah</option>
+                <option value="TK">TK</option>
+                <option value="SD">SD</option>
+                <option value="SMP">SMP</option>
+                <option value="SMA">SMA</option>
+                <option value="SMK">SMK</option>
+                <option value="Kuliah">Kuliah</option>
+              </select>
+
+              <label> Tingkat Pendidikan</label>
+              <input
+                type="text"
+                placeholder="Tingkat Pendidikan"
+                className="w-full border p-4 rounded-xl"
+                value={educationLevel}
+                onChange={(e) => setEducationLevel(e.target.value)}
               />
 
+              <label> Tempat Lahir</label>
+              <input
+                type="text"
+                placeholder="Tempat Lahir"
+                className="w-full border p-4 rounded-xl"
+                value={tempatLahir}
+                onChange={(e) => setTempatLahir(e.target.value)}
+              />
+
+              <label> Status</label>
+              <select
+                className="w-full border p-4 rounded-xl"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+              >
+                <option value="Dhuafa">Dhuafa</option>
+                <option value="Yatim">Yatim</option>
+                <option value="Piatu">Piatu</option>
+              </select>
+
+              <label> Badge</label>
               <input
                 type="text"
                 placeholder="Badge"
