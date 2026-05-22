@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import api, { BASE_URL } from "@/src/lib/api";
 import { BankAccount, Profile } from "@/src/data/Donation";
+import bgSection from "../../../public/bg-section.jpg";
+
 
 /* ─── Helpers ────────────────────────────────────────────── */
 
@@ -58,11 +60,10 @@ function CopyButton({ text }: { text: string }) {
   return (
     <button
       onClick={handleCopy}
-      className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 ${
-        copied
+      className={`inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-medium transition-all duration-200 ${copied
           ? "bg-primary-100 text-primary-700"
           : "bg-gray-100 text-gray-500 hover:bg-primary-50 hover:text-primary-600"
-      }`}
+        }`}
       title="Salin nomor rekening"
     >
       {copied ? (
@@ -122,7 +123,10 @@ export default function DonasiPage() {
   return (
     <>
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16 md:py-20">
+      <section className="py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgSection.src})`,
+        }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
             Donasi

@@ -10,6 +10,7 @@ const navLinks = [
   { href: "/", label: "Beranda" },
   { href: "/profile", label: "Tentang Kami" },
   { href: "/anak-asuh", label: "Anak Asuh" },
+  { href: "/programs", label: "Program Kami" },
   { href: "/galeri", label: "Galeri" },
   { href: "/donasi", label: "Donasi" },
   { href: "/kalkulator-zakat", label: "Kalkulator Zakat" },

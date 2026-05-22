@@ -139,17 +139,6 @@ export default function DialogEditGalleries({
               />
 
               <input
-                type="date"
-                value={uploadedAt}
-                onChange={(e) =>
-                  setUploadedAt(
-                    e.target.value
-                  )
-                }
-                className="w-full border p-4 rounded-xl"
-              />
-
-              <input
                 type="file"
                 accept="image/*"
                 onChange={(e: any) =>

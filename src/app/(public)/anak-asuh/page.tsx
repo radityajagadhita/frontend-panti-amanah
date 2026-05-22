@@ -5,6 +5,7 @@ import { Users, Loader2 } from "lucide-react";
 import api from "@/src/lib/api";
 import AnakAsuhCard from "./component/anak-asuh_Card";
 import { AnakAsuh } from "@/src/data/AnakAsuh";
+import bgSection from "../../../public/bg-section.jpg";
 
 export default function AnakAsuhPage() {
   const [children, setChildren] = useState<AnakAsuh[]>([]);
@@ -32,7 +33,10 @@ export default function AnakAsuhPage() {
   return (
     <>
       {/* Page Header */}
-      <section className="bg-gradient-to-br from-primary-600 to-primary-700 py-16 md:py-20">
+      <section className="py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgSection.src})`,
+        }}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
             Anak Asuh Kami

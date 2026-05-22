@@ -39,7 +39,7 @@ export default function UploadQris({
 
       const formData = new FormData();
 
-      formData.append("qris_file", file);
+      formData.append("qris_code", file);
 
       await api.post(
         "/profile/qris",

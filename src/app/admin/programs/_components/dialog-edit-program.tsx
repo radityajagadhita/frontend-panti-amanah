@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import api from "../../../../lib/api";
 import AlertModal from "../../../../components/admin/alertModal";
 
@@ -10,13 +10,13 @@ export default function DialogEditProgram({
 }: any) {
 
   const [open, setOpen] = useState(false);
-
   const [title, setTitle] = useState(program?.title || "");
   const [description, setDescription] = useState(program?.description || "");
-  const [images, setImages] = useState(program?.images || "");
   const [date, setDate] = useState(program?.date || "");
   const [location, setLocation] = useState(program?.location || "");
   const [time, setTime] = useState(program?.time || "");
+
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [alertModal, setAlertModal] = useState<{
     isOpen: boolean;
@@ -29,20 +29,27 @@ export default function DialogEditProgram({
     e.preventDefault();
 
     try {
+      const formData = new FormData();
+      formData.append("_method", "PUT"); // Laravel method spoofing
+      formData.append("title", title);
+      formData.append("description", description);
+      if (date) formData.append("date", date);
+      if (location) formData.append("location", location);
+      if (time) formData.append("time", time);
 
-      await api.put(`/programs/${program.id}`, {
-        title,
-        description,
-        images,
-        date: date || null,
-        location: location || null,
-        time: time || null,
+      // Kalau ada file gambar yang dipilih
+      if (fileInputRef.current?.files?.[0]) {
+        formData.append("images", fileInputRef.current.files[0]);
+      }
+
+      await api.post(`/programs/${program.id}`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
 
       setOpen(false);
-
       onSuccess();
-
       setAlertModal({
         isOpen: true,
         type: "success",
@@ -51,7 +58,6 @@ export default function DialogEditProgram({
 
     } catch (error) {
       console.log(error);
-
       setAlertModal({
         isOpen: true,
         type: "error",
@@ -74,7 +80,7 @@ export default function DialogEditProgram({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-          <div className="bg-white p-8 rounded-2xl w-[500px]">
+          <div className="bg-white p-8 rounded-2xl w-[500px] max-h-[90vh] overflow-y-auto">
 
             <h1 className="text-3xl font-bold mb-6">
               Edit Program
@@ -102,13 +108,12 @@ export default function DialogEditProgram({
                 required
               />
 
-              <label>Gambar (URL atau nama file)</label>
+              <label>Gambar</label>
               <input
-                type="text"
+                type="file"
                 placeholder="Images"
                 className="w-full border p-4 rounded-xl"
-                value={images}
-                onChange={(e) => setImages(e.target.value)}
+                ref={fileInputRef}
               />
 
               <label>Tanggal</label>

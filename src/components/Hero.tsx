@@ -1,9 +1,15 @@
 import Link from "next/link";
 import { ArrowRight, Heart, Sparkles } from "lucide-react";
+import bgHero from "../public/bg-hero.png";
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary-50 via-white to-primary-50/30">
+    <section
+      className="relative overflow-hidden bg-cover bg-center"
+      style={{
+        backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgHero.src})`,
+      }}
+    >
       {/* Decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary-100/40 blur-3xl" />

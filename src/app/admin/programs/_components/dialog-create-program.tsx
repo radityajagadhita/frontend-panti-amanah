@@ -1,24 +1,21 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import api from "../../../../lib/api";
 import AlertModal from "../../../../components/admin/alertModal";
-import { time } from "console";
+// HAPUS: import { time } from "console"; // ini import yang salah!
 
-export default function DialogCreateProgram({
-  onSuccess,
-}: any) {
+export default function DialogCreateProgram({ onSuccess }: any) {
 
   const [open, setOpen] = useState(false);
-
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [images, setImages] = useState("");
   const [date, setDate] = useState("");
   const [location, setLocation] = useState("");
   const [time, setTime] = useState("");
-
   const [loading, setLoading] = useState(false);
+
+  const fileInputRef = useRef<HTMLInputElement>(null); // tambah ref
 
   const [alertModal, setAlertModal] = useState<{
     isOpen: boolean;
@@ -27,48 +24,41 @@ export default function DialogCreateProgram({
   }>({ isOpen: false, type: "success", message: "" });
 
   const handleSubmit = async (e: any) => {
-
     e.preventDefault();
-
     setLoading(true);
 
     try {
+      const formData = new FormData(); // pakai FormData seperti di edit
 
-      await api.post("/programs", {
-        title,
-        description,
-        images,
-        date: date || null,
-        location: location || null,
-        time: time || null,
+      formData.append("title", title);
+      formData.append("description", description);
+      if (date) formData.append("date", date);
+      if (location) formData.append("location", location);
+      if (time) formData.append("time", time.slice(0, 5)); // trim detik
+
+      if (fileInputRef.current?.files?.[0]) {
+        formData.append("images", fileInputRef.current.files[0]);
+      }
+
+      await api.post("/programs", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
 
       setOpen(false);
-
       setTitle("");
       setDescription("");
-      setImages("");
       setDate("");
       setLocation("");
       setTime("");
+      if (fileInputRef.current) fileInputRef.current.value = ""; // reset file input
 
       onSuccess();
 
-      setAlertModal({
-        isOpen: true,
-        type: "success",
-        message: "Program berhasil dibuat",
-      });
+      setAlertModal({ isOpen: true, type: "success", message: "Program berhasil dibuat" });
 
     } catch (error: any) {
-
       console.log(error.response?.data);
-
-      setAlertModal({
-        isOpen: true,
-        type: "error",
-        message: "Gagal create program",
-      });
+      setAlertModal({ isOpen: true, type: "error", message: "Gagal create program" });
     }
 
     setLoading(false);
@@ -76,7 +66,6 @@ export default function DialogCreateProgram({
 
   return (
     <>
-
       <button
         onClick={() => setOpen(true)}
         className="bg-green-700 text-white px-5 py-3 rounded-xl"
@@ -85,19 +74,11 @@ export default function DialogCreateProgram({
       </button>
 
       {open && (
-
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 w-[500px] max-h-[90vh] overflow-y-auto">
+            <h1 className="text-3xl font-bold mb-6">Create Program</h1>
 
-          <div className="bg-white rounded-2xl p-8 w-[500px]">
-
-            <h1 className="text-3xl font-bold mb-6">
-              Create Program
-            </h1>
-
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-4"
-            >
+            <form onSubmit={handleSubmit} className="space-y-4">
 
               <label>Judul Program</label>
               <input
@@ -120,10 +101,9 @@ export default function DialogCreateProgram({
               <label>Gambar (Jika ada)</label>
               <input
                 type="file"
-                placeholder="Images"
+                ref={fileInputRef}
                 className="w-full border p-4 rounded-xl"
-                value={images}
-                onChange={(e) => setImages(e.target.value)}
+                // HAPUS value dan onChange
               />
 
               <label>Tanggal</label>
@@ -152,7 +132,6 @@ export default function DialogCreateProgram({
               />
 
               <div className="flex gap-4">
-
                 <button
                   type="submit"
                   disabled={loading}
@@ -168,15 +147,11 @@ export default function DialogCreateProgram({
                 >
                   Cancel
                 </button>
-
               </div>
 
             </form>
-
           </div>
-
         </div>
-
       )}
 
       <AlertModal
@@ -185,7 +160,6 @@ export default function DialogCreateProgram({
         type={alertModal.type}
         message={alertModal.message}
       />
-
     </>
   );
 }

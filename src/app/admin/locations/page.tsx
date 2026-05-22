@@ -32,7 +32,7 @@ export default function LocationsPage() {
         );
 
       setLocations(
-        response.data || []
+        response.data.data || []
       );
 
     } catch (error) {

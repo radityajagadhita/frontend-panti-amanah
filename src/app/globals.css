@@ -12,16 +12,16 @@
   --font-mono: var(--font-geist-mono);
 
   /* Yellow Palette */
-  --color-primary-50: #fefce8;
-  --color-primary-100: #fef9c3;
-  --color-primary-200: #fef08a;
-  --color-primary-300: #fde047;
-  --color-primary-400: #facc15;
-  --color-primary-500: #eab308;
-  --color-primary-600: #ca8a04;
-  --color-primary-700: #a16207;
-  --color-primary-800: #854d0e;
-  --color-primary-900: #713f12;
+  --color-primary-50: #fefce8;  /* Kuning sangat muda (tetap soft) */
+  --color-primary-100: #fef4a9; /* Kuning cerah */
+  --color-primary-200: #f2e365; /* Kuning matang */
+  --color-primary-300: #c2d853; /* Kuning kehijauan (Lime) */
+  --color-primary-400: #7bc571; /* Hijau Segar */
+  --color-primary-500: #3ca994; /* Hijau Toska / Teal (Midpoint) */
+  --color-primary-600: #1f86aa; /* Biru Laut / Cyan Tua */
+  --color-primary-700: #195f93; /* Biru Utama (Classic Blue) */
+  --color-primary-800: #193f73; /* Biru Gelap / Navy */
+  --color-primary-900: #12244e; /* Biru Sangat Gelap (Midnight Blue) */
 
   /* Accent - Blue */
   --color-accent: #3b82f6;

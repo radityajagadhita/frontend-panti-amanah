@@ -103,7 +103,7 @@ export default function DialogEditAnakAsuh({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 overflow-auto">
 
-          <div className="bg-white p-8 rounded-2xl w-[600px]">
+          <div className="bg-white p-8 rounded-2xl w-[600px] max-h-[90vh] overflow-y-auto">
 
             <h1 className="text-3xl font-bold mb-6">
               Edit Anak Asuh

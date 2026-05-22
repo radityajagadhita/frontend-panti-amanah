@@ -49,7 +49,6 @@ export default function DialogCreateAnakAsuh({
       formData.append("education_level", educationLevel);
       formData.append("tempat_lahir", tempatLahir);
       formData.append("status", status);
-      formData.append("badge", badge);
       formData.append("tanggal_lahir", TanggalLahir);
       formData.append("description", description);
 
@@ -187,15 +186,7 @@ export default function DialogCreateAnakAsuh({
                 <option value="Piatu">Piatu</option>
               </select>
 
-              <label> Badge</label>
-              <input
-                type="text"
-                placeholder="Badge"
-                className="w-full border p-4 rounded-xl"
-                value={badge}
-                onChange={(e) => setBadge(e.target.value)}
-              />
-
+              <label> Tanggal Lahir</label>
               <input
                 type="date"
                 placeholder="Tanggal lahir"
@@ -204,12 +195,15 @@ export default function DialogCreateAnakAsuh({
                 onChange={(e) => setTanggalLahir(e.target.value)}
               />
 
+              <label> Deskripsi</label>
               <textarea
                 placeholder="Description"
                 className="w-full border p-4 rounded-xl h-32"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
+
+              <label> Foto (Jika ada)</label>
 
               <label className="flex items-center gap-4 border rounded-2xl px-5 py-4 cursor-pointer hover:border-black-500 transition-all">
 

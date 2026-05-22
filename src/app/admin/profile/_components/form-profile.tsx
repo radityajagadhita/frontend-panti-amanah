@@ -15,7 +15,7 @@ export default function FormProfile({
   const [form, setForm] = useState({
     email: profile.email || "",
     phone_number: profile.phone_number || "",
-    Whatsapp_number: profile.Whatsapp_number || "",
+    whatsapp_number: profile.whatsapp_number || "",
     whatsapp_link: profile.whatsapp_link || "",
   });
 
@@ -96,9 +96,9 @@ export default function FormProfile({
         <label className="block text-sm font-medium text-gray-700">Whatsapp Number</label>
         <input
           type="text"
-          name="Whatsapp_number"
+          name="whatsapp_number"
           placeholder="Whatsapp Number"
-          value={form.Whatsapp_number}
+          value={form.whatsapp_number}
           onChange={handleChange}
           className="w-full border p-4 rounded-xl"
         />

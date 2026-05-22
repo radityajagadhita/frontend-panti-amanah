@@ -40,7 +40,7 @@ export default function Footer() {
   }, []);
 
   return (
-    <footer className="bg-primary-900 text-white">
+    <footer className="bg-primary-700 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
         <div className="grid gap-10 py-14 md:grid-cols-3">
