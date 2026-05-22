@@ -119,7 +119,7 @@ export default function DialogCreateAnakAsuh({
                 onChange={(e) => setName(e.target.value)}
               />
 
-              <label> Nama Anak</label>
+              <label> Umur Anak</label>
               <input
                 type="number"
                 placeholder="Umur"

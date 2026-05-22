@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Leaf, MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import { Leaf, Phone, Mail, MessageCircle } from "lucide-react";
 import api from "@/src/lib/api";
 
 interface SiteProfile {
@@ -10,6 +10,7 @@ interface SiteProfile {
   Whatsapp_number?: string;
   email?: string;
   whatsapp_link?: string | null;
+  instagram?: string | null;
 }
 
 const quickLinks = [
@@ -89,12 +90,12 @@ export default function Footer() {
               {/* Phone */}
               {profile?.phone_number ? (
                 <li className="flex items-center gap-3 text-sm text-primary-200/70">
-                  <Phone className="h-4 w-4 shrink-0 text-primary-400" />
+                  <Phone className="h-4 w-4 shrink-0 text-primary-200" />
                   <span>{profile.phone_number}</span>
                 </li>
               ) : (
                 <li className="flex items-center gap-3 text-sm text-primary-200/40 animate-pulse">
-                  <Phone className="h-4 w-4 shrink-0 text-primary-600" />
+                  <Phone className="h-4 w-4 shrink-0 text-primary-200" />
                   <span>Memuat...</span>
                 </li>
               )}
@@ -102,7 +103,7 @@ export default function Footer() {
               {/* WhatsApp */}
               {profile?.Whatsapp_number && (
                 <li className="flex items-center gap-3 text-sm text-primary-200/70">
-                  <MessageCircle className="h-4 w-4 shrink-0 text-primary-400" />
+                  <MessageCircle className="h-4 w-4 shrink-0 text-primary-200" />
                   {profile.whatsapp_link ? (
                     <a
                       href={profile.whatsapp_link}
@@ -121,7 +122,7 @@ export default function Footer() {
               {/* Email */}
               {profile?.email ? (
                 <li className="flex items-center gap-3 text-sm text-primary-200/70">
-                  <Mail className="h-4 w-4 shrink-0 text-primary-400" />
+                  <Mail className="h-4 w-4 shrink-0 text-primary-200" />
                   <a
                     href={`mailto:${profile.email}`}
                     className="hover:text-white transition-colors"
@@ -131,13 +132,30 @@ export default function Footer() {
                 </li>
               ) : (
                 <li className="flex items-center gap-3 text-sm text-primary-200/40 animate-pulse">
-                  <Mail className="h-4 w-4 shrink-0 text-primary-600" />
+                  <Mail className="h-4 w-4 shrink-0 text-primary-200" />
                   <span>Memuat...</span>
                 </li>
               )}
-              <li className="flex items-center gap-3 text-sm text-primary-200/70">
-                <span className="font-semibold">IG:</span> @panti.amanah
-              </li>
+
+              {/* Instagram */}
+              {profile?.instagram ? (
+                <li className="flex items-center gap-3 text-sm text-primary-200/70">
+                  <h5 className="font-semibold shrink-0 text-primary-200">IG: </h5>
+                  <a
+                    href={`https://www.instagram.com/${profile.instagram}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="hover:text-white transition-colors"
+                  >
+                    {profile.instagram}
+                  </a>
+                </li>
+              ) : (
+                <li className="flex items-center gap-3 text-sm text-primary-200/40 animate-pulse">
+                  <h5 className="font-semibold shrink-0 text-primary-200">IG: </h5>
+                  <span>Memuat...</span>
+                </li>
+              )}
             </ul>
           </div>
         </div>

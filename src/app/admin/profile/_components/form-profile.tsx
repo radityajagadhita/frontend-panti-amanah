@@ -17,6 +17,7 @@ export default function FormProfile({
     phone_number: profile.phone_number || "",
     whatsapp_number: profile.whatsapp_number || "",
     whatsapp_link: profile.whatsapp_link || "",
+    instagram: profile.instagram || "",
   });
 
   const [alertModal, setAlertModal] = useState<{
@@ -109,6 +110,16 @@ export default function FormProfile({
           name="whatsapp_link"
           placeholder="Whatsapp Link"
           value={form.whatsapp_link}
+          onChange={handleChange}
+          className="w-full border p-4 rounded-xl"
+        />
+
+        <label className="block text-sm font-medium text-gray-700">akun instagram (tulis tanpa @)</label>
+        <input
+          type="string"
+          name="instagram"
+          placeholder="instagram"
+          value={form.instagram}
           onChange={handleChange}
           className="w-full border p-4 rounded-xl"
         />

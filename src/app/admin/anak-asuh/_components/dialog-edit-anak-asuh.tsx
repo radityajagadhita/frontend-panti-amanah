@@ -11,13 +11,12 @@ export default function DialogEditAnakAsuh({
 }: any) {
 
   const [open, setOpen] = useState(false);
-
+  const [name, setName] = useState(child.name || "");
   const [age, setAge] = useState(child.age);
   const [education, setEducation] = useState(child.education);
   const [educationLevel, setEducationLevel] = useState(child.education_level || "");
   const [tempatLahir, setTempatLahir] = useState(child.tempat_lahir || "");
   const [status, setStatus] = useState(child.status || "Dhuafa");
-  const [badge, setBadge] = useState(child.badge || "");
 
   const [description, setDescription] = useState(
     child.description || ""
@@ -42,13 +41,12 @@ export default function DialogEditAnakAsuh({
     try {
 
       const formData = new FormData();
-
+      formData.append("name", name);
       formData.append("age", age);
       formData.append("education", education);
       formData.append("education_level", educationLevel);
       formData.append("tempat_lahir", tempatLahir);
       formData.append("status", status);
-      formData.append("badge", badge);
       formData.append("description", description);
 
       if (photo) {
@@ -114,6 +112,15 @@ export default function DialogEditAnakAsuh({
               className="space-y-4"
             >
 
+              <label> Nama</label>
+              <input
+                type="text"
+                placeholder="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                className="w-full border p-4 rounded-xl"
+              />
+
               <label> Umur</label>
               <input
                 type="number"
@@ -166,15 +173,6 @@ export default function DialogEditAnakAsuh({
                 <option value="Yatim">Yatim</option>
                 <option value="Piatu">Piatu</option>
               </select>
-
-              <label> Badge</label>
-              <input
-                type="text"
-                placeholder="Badge"
-                value={badge}
-                onChange={(e) => setBadge(e.target.value)}
-                className="w-full border p-4 rounded-xl"
-              />
 
               <label> Deskripsi</label>
               <textarea

@@ -28,7 +28,7 @@ export default function Hero() {
           {/* Main heading */}
           <h1 className="animate-fade-in-up-delay-1 text-4xl font-extrabold leading-tight tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">
             Bersama Membangun{" "}
-            <span className="bg-gradient-to-r from-primary-600 to-primary-500 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-primary-800 via-primary-600 to-primary-500 bg-clip-text text-transparent">
               Masa Depan Cerah
             </span>{" "}
             Anak-anak Kita

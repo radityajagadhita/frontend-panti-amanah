@@ -119,7 +119,7 @@ export default function DialogCreateLocation({
                 <input
                 type="text"
                 name="google_maps_url"
-                placeholder="Google Maps URL"
+                placeholder="Google Maps URL (link)"
                 value={form.google_maps_url}
                 onChange={handleChange}
                 className="w-full border p-4 rounded-xl"
