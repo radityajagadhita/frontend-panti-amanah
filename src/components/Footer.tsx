@@ -49,7 +49,7 @@ export default function Footer() {
           <div>
             <div className="flex items-center gap-2.5 mb-4">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-600/30">
-                <Leaf className="h-5 w-5 text-primary-300" />
+                <img src="/icon.png" alt="Panti Amanah" />
               </div>
               <span className="text-lg font-bold tracking-tight">
                 Panti Amanah

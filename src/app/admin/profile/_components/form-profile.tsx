@@ -13,6 +13,9 @@ export default function FormProfile({
   const [loading, setLoading] = useState(false);
 
   const [form, setForm] = useState({
+    ketua_yayasan: profile.ketua_yayasan || "",
+    tahun_periode: profile.tahun_periode || "",
+    profil_text: profile.profil_text || "",
     email: profile.email || "",
     phone_number: profile.phone_number || "",
     whatsapp_number: profile.whatsapp_number || "",
@@ -74,6 +77,36 @@ export default function FormProfile({
         className="space-y-4"
       >
         
+        <label className="block text-sm font-medium text-gray-700">Ketua Yayasan</label>
+        <input
+          type="text"
+          name="ketua_yayasan"
+          placeholder="Ketua Yayasan"
+          value={form.ketua_yayasan}
+          onChange={handleChange}
+          className="w-full border p-4 rounded-xl"
+        />
+
+        <label className="block text-sm font-medium text-gray-700">Tahun Periode</label>
+        <input
+          type="text"
+          name="tahun_periode"
+          placeholder="Tahun Periode"
+          value={form.tahun_periode}
+          onChange={handleChange}
+          className="w-full border p-4 rounded-xl"
+        />
+
+        <label className="block text-sm font-medium text-gray-700">Profil</label>
+        <textarea
+          name="profil_text"
+          placeholder="Profil"
+          value={form.profil_text}
+          onChange={handleChange}
+          className="w-full border p-4 rounded-xl"
+          rows={5}
+        />
+
         <label className="block text-sm font-medium text-gray-700">Email</label>
         <input
           type="email"
