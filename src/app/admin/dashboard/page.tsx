@@ -153,9 +153,6 @@ export default function DashboardPage() {
         <div className="bg-white rounded-[2rem] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 p-8 h-[500px] flex flex-col">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-xl font-bold text-gray-900">Recent Donations</h1>
-            <button className="text-sm font-semibold text-primary-600 flex items-center gap-1 hover:text-primary-700 transition-colors">
-              View All <ArrowUpRight className="w-4 h-4" />
-            </button>
           </div>
           
           <div className="space-y-4 overflow-y-auto pr-2 flex-1 scrollbar-hide">

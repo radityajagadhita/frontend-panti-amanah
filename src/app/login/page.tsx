@@ -98,7 +98,7 @@ export default function LoginPage() {
               <input
                 {...register("email")}
                 type="email"
-                placeholder="admin@pantiamanah.org"
+                placeholder="email"
                 className="w-full pl-11 pr-4 py-3.5 bg-gray-50/50 border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none shadow-sm"
                 required
               />
