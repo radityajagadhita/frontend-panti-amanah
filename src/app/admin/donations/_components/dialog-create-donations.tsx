@@ -130,7 +130,7 @@ export default function DialogCreateDonations({
     <>
       <button
         onClick={() => setOpen(true)}
-        className="bg-green-700 text-white px-5 py-3 rounded-xl"
+        className="bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-500 hover:to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg shadow-primary-500/30 transition-all font-medium"
       >
         Create Donation
       </button>
@@ -139,11 +139,20 @@ export default function DialogCreateDonations({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 overflow-auto">
 
-          <div className="bg-white p-8 rounded-2xl w-[700px]">
+          <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 sm:p-10 shadow-2xl border border-white/40 w-[700px]">
 
-            <h1 className="text-3xl font-bold mb-6">
-              Create Donation
-            </h1>
+            <div className="flex justify-between items-start mb-6">
+              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Create Donation
+              </h1>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
 
             <form
               onSubmit={handleSubmit}
@@ -156,7 +165,7 @@ export default function DialogCreateDonations({
                 placeholder="Donor Name"
                 value={form.donor_name}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <input
@@ -165,7 +174,7 @@ export default function DialogCreateDonations({
                 placeholder="Phone Number"
                 value={form.phone_number}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <input
@@ -174,13 +183,13 @@ export default function DialogCreateDonations({
                 placeholder="Tujuan Donasi"
                 value={form.tujuan}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <label> Metode Pembayaran</label>
               <select
                 name="payment_method"
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={form.payment_method}
                 onChange={handleChange}
               >
@@ -198,7 +207,7 @@ export default function DialogCreateDonations({
                     form.bank_account_id
                   }
                   onChange={handleChange}
-                  className="w-full border p-4 rounded-xl"
+                  className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 >
 
                   <option value="">
@@ -225,7 +234,7 @@ export default function DialogCreateDonations({
                 placeholder="Amount"
                 value={form.amount}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <label className="flex items-center gap-4 border rounded-2xl px-5 py-4 cursor-pointer hover:border-black-500 transition-all">
@@ -260,7 +269,7 @@ export default function DialogCreateDonations({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-green-700 text-white px-5 py-3 rounded-xl"
+                  className="bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-500 hover:to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg shadow-primary-500/30 transition-all font-medium"
                 >
                   {loading
                     ? "Loading..."
@@ -272,7 +281,7 @@ export default function DialogCreateDonations({
                   onClick={() =>
                     setOpen(false)
                   }
-                  className="bg-gray-300 px-5 py-3 rounded-xl"
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl transition-colors font-medium"
                 >
                   Cancel
                 </button>

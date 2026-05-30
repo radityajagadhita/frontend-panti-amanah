@@ -86,31 +86,31 @@ export default function ColumnTableDonations({
 
             <tr>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Donor
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Amount
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Tujuan
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Bukti Gambar
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Waktu kirim
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Bank
               </th>
 
-              <th className="p-4 text-left">
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">
                 Actions
               </th>
 
@@ -134,7 +134,7 @@ export default function ColumnTableDonations({
                 className="border-t hover:bg-gray-50 transition-colors"
               >
 
-                <td className="p-4">
+                <td className="p-4 text-sm text-gray-600">
                   {donation.donor_name}
                 </td>
 
@@ -145,11 +145,11 @@ export default function ColumnTableDonations({
                   ).toLocaleString("id-ID")}
                 </td>
 
-                <td className="p-4">
+                <td className="p-4 text-sm text-gray-600">
                   {donation.tujuan}
                 </td>
 
-                <td className="p-4">
+                <td className="p-4 text-sm text-gray-600">
 
                   <img
                     src={
@@ -161,7 +161,7 @@ export default function ColumnTableDonations({
 
                 </td>
 
-                <td className="p-4">
+                <td className="p-4 text-sm text-gray-600">
                   {new Date(
                     donation.created_at
                   ).toLocaleString("id-ID", {
@@ -170,13 +170,13 @@ export default function ColumnTableDonations({
                   })}
                 </td>
 
-                <td className="p-4">{
+                <td className="p-4 text-sm text-gray-600">{
                   donation.bank_account?.bank_name || donation.payment_method
                   || "-"
                 }
                 </td>
 
-                <td className="p-4">
+                <td className="p-4 text-sm text-gray-600">
 
                   <div className="flex gap-3">
 

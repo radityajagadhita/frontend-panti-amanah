@@ -47,15 +47,15 @@ export default function ColumnTablePrograms({
 
           <tr>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Title
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Description
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Actions
             </th>
 
@@ -72,15 +72,15 @@ export default function ColumnTablePrograms({
               className="border-t"
             >
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
                 {program.title}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
                 {program.description}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
 
                 <div className="flex gap-3">
 
@@ -91,7 +91,7 @@ export default function ColumnTablePrograms({
 
                   <button
                     onClick={() => setDeleteId(program.id)}
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                    className="bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-400 hover:to-red-500 text-white px-5 py-2.5 rounded-xl shadow-lg shadow-red-500/30 transition-all font-medium text-sm"
                   >
                     Delete
                   </button>

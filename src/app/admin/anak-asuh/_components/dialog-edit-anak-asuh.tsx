@@ -23,6 +23,7 @@ export default function DialogEditAnakAsuh({
   );
 
   const [photo, setPhoto] = useState<any>(null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   const [loading, setLoading] = useState(false);
 
@@ -49,8 +50,12 @@ export default function DialogEditAnakAsuh({
       formData.append("status", status);
       formData.append("description", description);
 
-      if (photo) {
+      if (photo && !removeImage) {
         formData.append("photo", photo);
+      }
+      
+      if (removeImage) {
+        formData.append("remove_image", "1");
       }
 
       await api.post(
@@ -101,11 +106,20 @@ export default function DialogEditAnakAsuh({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 overflow-auto">
 
-          <div className="bg-white p-8 rounded-2xl w-[600px] max-h-[90vh] overflow-y-auto">
+          <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 sm:p-10 shadow-2xl border border-white/40 w-[600px] max-h-[90vh] overflow-y-auto scrollbar-hide">
 
-            <h1 className="text-3xl font-bold mb-6">
-              Edit Anak Asuh
-            </h1>
+            <div className="flex justify-between items-start mb-6">
+              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Edit Anak Asuh
+              </h1>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
 
             <form
               onSubmit={handleUpdate}
@@ -118,7 +132,7 @@ export default function DialogEditAnakAsuh({
                 placeholder="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <label> Umur</label>
@@ -127,12 +141,12 @@ export default function DialogEditAnakAsuh({
                 placeholder="Umur"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <label> Pendidikan</label>
               <select
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={education}
                 onChange={(e) => setEducation(e.target.value)}
               >
@@ -151,7 +165,7 @@ export default function DialogEditAnakAsuh({
                 placeholder="Tingkat Pendidikan"
                 value={educationLevel}
                 onChange={(e) => setEducationLevel(e.target.value)}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <label> Tempat Lahir</label>
@@ -160,12 +174,12 @@ export default function DialogEditAnakAsuh({
                 placeholder="Tempat Lahir"
                 value={tempatLahir}
                 onChange={(e) => setTempatLahir(e.target.value)}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <label> Status</label>
               <select
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
@@ -181,24 +195,36 @@ export default function DialogEditAnakAsuh({
                 onChange={(e) =>
                   setDescription(e.target.value)
                 }
-                className="w-full border p-4 rounded-xl h-32"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl h-32 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none resize-none"
               />
 
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e: any) =>
-                  setPhoto(e.target.files[0])
-                }
-                className="w-full border p-4 rounded-xl"
-              />
+              <div className="flex items-center gap-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e: any) =>
+                    setPhoto(e.target.files[0])
+                  }
+                  className="flex-1 bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
+                  disabled={removeImage}
+                />
+                <label className="flex items-center gap-2 cursor-pointer text-sm text-red-500 font-medium whitespace-nowrap bg-red-50 px-4 py-4 rounded-xl border border-red-100 hover:bg-red-100 transition-colors">
+                  <input
+                    type="checkbox"
+                    checked={removeImage}
+                    onChange={(e) => setRemoveImage(e.target.checked)}
+                    className="w-4 h-4 text-red-500 rounded border-red-200 focus:ring-red-500"
+                  />
+                  Hapus Gambar
+                </label>
+              </div>
 
               <div className="flex gap-4">
 
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-green-700 text-white px-5 py-3 rounded-xl"
+                  className="bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-500 hover:to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg shadow-primary-500/30 transition-all font-medium"
                 >
                   {loading ? "Loading..." : "Update"}
                 </button>
@@ -206,7 +232,7 @@ export default function DialogEditAnakAsuh({
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="bg-gray-300 px-5 py-3 rounded-xl"
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl transition-colors font-medium"
                 >
                   Cancel
                 </button>

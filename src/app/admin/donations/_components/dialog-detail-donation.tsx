@@ -22,11 +22,11 @@ export default function DialogDetailDonation({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-          <div className="bg-white p-8 rounded-2xl w-[700px] max-h-[90vh] overflow-auto">
+          <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 sm:p-10 shadow-2xl border border-white/40 w-[700px] max-h-[90vh] overflow-auto">
 
             <div className="flex justify-between items-center mb-6">
 
-              <h1 className="text-3xl font-bold">
+              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
                 Donation Detail
               </h1>
 

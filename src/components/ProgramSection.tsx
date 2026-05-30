@@ -7,7 +7,7 @@ interface Program {
   id: number;
   title: string;
   description: string;
-  image?: string;
+  image_url?: string;
 }
 
 export default function ProgramSection() {
@@ -50,9 +50,9 @@ export default function ProgramSection() {
 
               <div className="h-64 bg-gray-200">
 
-                {item.image && (
+                {item.image_url && (
                   <img
-                    src={item.image}
+                    src={item.image_url}
                     alt={item.title}
                     className="w-full h-full object-cover"
                   />

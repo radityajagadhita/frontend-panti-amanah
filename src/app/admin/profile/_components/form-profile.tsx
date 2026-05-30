@@ -70,7 +70,7 @@ export default function FormProfile({
   };
 
   return (
-    <div className="bg-white p-8 rounded-2xl shadow">
+    <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 sm:p-10 shadow-2xl border border-white/40 shadow">
 
       <form
         onSubmit={handleSubmit}
@@ -84,7 +84,7 @@ export default function FormProfile({
           placeholder="Ketua Yayasan"
           value={form.ketua_yayasan}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
 
         <label className="block text-sm font-medium text-gray-700">Tahun Periode</label>
@@ -94,7 +94,7 @@ export default function FormProfile({
           placeholder="Tahun Periode"
           value={form.tahun_periode}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
 
         <label className="block text-sm font-medium text-gray-700">Profil</label>
@@ -103,7 +103,7 @@ export default function FormProfile({
           placeholder="Profil"
           value={form.profil_text}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
           rows={5}
         />
 
@@ -114,7 +114,7 @@ export default function FormProfile({
           placeholder="Email"
           value={form.email}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
         
         <label className="block text-sm font-medium text-gray-700">Phone Number</label>
@@ -124,7 +124,7 @@ export default function FormProfile({
           placeholder="Phone Number"
           value={form.phone_number}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
 
         <label className="block text-sm font-medium text-gray-700">Whatsapp Number</label>
@@ -134,7 +134,7 @@ export default function FormProfile({
           placeholder="Whatsapp Number"
           value={form.whatsapp_number}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
 
         <label className="block text-sm font-medium text-gray-700">Whatsapp Link</label>
@@ -144,7 +144,7 @@ export default function FormProfile({
           placeholder="Whatsapp Link"
           value={form.whatsapp_link}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
 
         <label className="block text-sm font-medium text-gray-700">akun instagram (tulis tanpa @)</label>
@@ -154,7 +154,7 @@ export default function FormProfile({
           placeholder="instagram"
           value={form.instagram}
           onChange={handleChange}
-          className="w-full border p-4 rounded-xl"
+          className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
         />
 
         <button

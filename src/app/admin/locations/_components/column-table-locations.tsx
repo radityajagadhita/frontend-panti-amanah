@@ -59,15 +59,15 @@ export default function ColumnTableLocations({
 
           <tr>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Address
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Google Maps
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Actions
             </th>
 
@@ -88,7 +88,7 @@ export default function ColumnTableLocations({
                 {location.address}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
 
                 {location.google_maps_url ? (
 
@@ -112,7 +112,7 @@ export default function ColumnTableLocations({
 
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
 
                 <div className="flex gap-3">
 

@@ -60,19 +60,19 @@ export default function ColumnTableBankAccounts({
 
           <tr>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Bank
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Account Name
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Account Number
             </th>
 
-            <th className="p-4 text-left">
+            <th className="p-4 text-sm font-semibold text-gray-700 text-left">
               Actions
             </th>
 
@@ -89,19 +89,19 @@ export default function ColumnTableBankAccounts({
               className="border-t"
             >
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
                 {bank.bank_name}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
                 {bank.account_holder}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
                 {bank.account_number}
               </td>
 
-              <td className="p-4">
+              <td className="p-4 text-sm text-gray-600">
 
                 <div className="flex gap-3">
 

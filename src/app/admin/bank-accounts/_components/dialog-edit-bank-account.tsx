@@ -93,11 +93,20 @@ export default function DialogEditBankAccount({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
 
-          <div className="bg-white p-8 rounded-2xl w-[500px]">
+          <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 sm:p-10 shadow-2xl border border-white/40 w-[500px]">
 
-            <h1 className="text-3xl font-bold mb-6">
-              Edit Bank Account
-            </h1>
+            <div className="flex justify-between items-start mb-6">
+              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Edit Bank Account
+              </h1>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
 
             <form
               onSubmit={handleSubmit}
@@ -110,7 +119,7 @@ export default function DialogEditBankAccount({
                 placeholder="Bank Name"
                 value={form.bank_name}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <input
@@ -119,7 +128,7 @@ export default function DialogEditBankAccount({
                 placeholder="Account Holder"
                 value={form.account_holder}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <input
@@ -128,7 +137,7 @@ export default function DialogEditBankAccount({
                 placeholder="Account Number"
                 value={form.account_number}
                 onChange={handleChange}
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
               />
 
               <div className="flex gap-3">
@@ -146,7 +155,7 @@ export default function DialogEditBankAccount({
                   onClick={() =>
                     setOpen(false)
                   }
-                  className="bg-gray-300 px-5 py-3 rounded-xl"
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl transition-colors font-medium"
                 >
                   Cancel
                 </button>

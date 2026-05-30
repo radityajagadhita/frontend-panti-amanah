@@ -60,13 +60,13 @@ export default function ColumnTableAnakAsuh({
         <table className="w-full border border-gray-300">
           <thead className="bg-gray-100 sticky top-0 z-10 shadow-sm">
             <tr>
-              <th className="p-4 text-left">No</th>
-              <th className="p-4 text-left">Photo</th>
-              <th className="p-4 text-left">Name</th>
-              <th className="p-4 text-left">Age</th>
-              <th className="p-4 text-left">Gender</th>
-              <th className="p-4 text-left">Education</th>
-              <th className="p-4 text-left">Actions</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">No</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">Photo</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">Name</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">Age</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">Gender</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">Education</th>
+              <th className="p-4 text-sm font-semibold text-gray-700 text-left">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -82,18 +82,18 @@ export default function ColumnTableAnakAsuh({
                   <td className="p-4 text-sm text-gray-500">
                     {(currentPage - 1) * perPage + index + 1}
                   </td>
-                  <td className="p-4">
+                  <td className="p-4 text-sm text-gray-600">
                     <img
                       src={child.photo_url}
                       alt=""
                       className="w-16 h-16 object-cover rounded-full"
                     />
                   </td>
-                  <td className="p-4">{child.name}</td>
-                  <td className="p-4">{child.age}</td>
-                  <td className="p-4">{child.gender}</td>
-                  <td className="p-4">{child.education}</td>
-                  <td className="p-4">
+                  <td className="p-4 text-sm text-gray-600">{child.name}</td>
+                  <td className="p-4 text-sm text-gray-600">{child.age}</td>
+                  <td className="p-4 text-sm text-gray-600">{child.gender}</td>
+                  <td className="p-4 text-sm text-gray-600">{child.education}</td>
+                  <td className="p-4 text-sm text-gray-600">
                     <div className="flex gap-3">
                       <DialogEditAnakAsuh child={child} onSuccess={onSuccess} />
                       <button

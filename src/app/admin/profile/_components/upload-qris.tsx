@@ -74,8 +74,39 @@ export default function UploadQris({
     setLoading(false);
   };
 
+  const handleRemoveQris = async () => {
+    setLoading(true);
+
+    try {
+      const formData = new FormData();
+      formData.append("remove_image", "1");
+
+      await api.post("/profile/qris", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      onSuccess();
+
+      setAlertModal({
+        isOpen: true,
+        type: "success",
+        message: "QRIS berhasil dihapus",
+      });
+
+    } catch (error: any) {
+      console.log(error.response?.data);
+      setAlertModal({
+        isOpen: true,
+        type: "error",
+        message: "Gagal menghapus QRIS",
+      });
+    }
+
+    setLoading(false);
+  };
+
   return (
-    <div className="bg-white p-8 rounded-2xl shadow space-y-6">
+    <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 sm:p-10 shadow-2xl border border-white/40 shadow space-y-6">
 
       <div>
 
@@ -127,13 +158,26 @@ export default function UploadQris({
 
 </label>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-green-700 text-white px-6 py-3 rounded-xl"
-        >
-          {loading ? "Uploading..." : "Upload QRIS"}
-        </button>
+        <div className="flex gap-4">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-500 hover:to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg shadow-primary-500/30 transition-all font-medium"
+          >
+            {loading ? "Loading..." : "Upload QRIS"}
+          </button>
+
+          {profile?.qris_url && (
+            <button
+              type="button"
+              onClick={handleRemoveQris}
+              disabled={loading}
+              className="bg-red-50 hover:bg-red-100 text-red-600 border border-red-100 px-6 py-3 rounded-xl transition-colors font-medium"
+            >
+              Hapus QRIS
+            </button>
+          )}
+        </div>
 
       </form>
 

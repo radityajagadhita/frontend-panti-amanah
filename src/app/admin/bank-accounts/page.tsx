@@ -43,7 +43,7 @@ export default function BankAccountsPage() {
 
         <div>
 
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
             Bank Accounts
           </h1>
 

@@ -44,7 +44,7 @@ export default function AnakAsuhPage() {
 
         <div>
 
-          <h1 className="text-4xl font-bold">
+          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
             Anak Asuh
           </h1>
 

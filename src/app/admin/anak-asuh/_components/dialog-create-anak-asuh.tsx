@@ -91,7 +91,7 @@ export default function DialogCreateAnakAsuh({
 
       <button
         onClick={() => setOpen(true)}
-        className="bg-green-700 text-white px-5 py-3 rounded-xl"
+        className="bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-500 hover:to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg shadow-primary-500/30 transition-all font-medium"
       >
         Create Anak Asuh
       </button>
@@ -100,11 +100,20 @@ export default function DialogCreateAnakAsuh({
 
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 overflow-auto">
 
-          <div className="bg-white p-8 max-h-[90vh] overflow-y-auto rounded-2xl w-[600px]">
+          <div className="bg-white p-8 max-h-[90vh] overflow-y-auto scrollbar-hide rounded-2xl w-[600px]">
 
-            <h1 className="text-3xl font-bold mb-6">
-              Create Anak Asuh
-            </h1>
+            <div className="flex justify-between items-start mb-6">
+              <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
+                Create Anak Asuh
+              </h1>
+              <button
+                type="button"
+                onClick={() => setOpen(false)}
+                className="text-gray-400 hover:text-gray-600 bg-gray-50 hover:bg-gray-100 rounded-full p-2 transition-colors"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+              </button>
+            </div>
 
             <form
               onSubmit={handleSubmit}
@@ -114,7 +123,7 @@ export default function DialogCreateAnakAsuh({
               <input
                 type="text"
                 placeholder="Nama"
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -123,14 +132,14 @@ export default function DialogCreateAnakAsuh({
               <input
                 type="number"
                 placeholder="Umur"
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={age}
                 onChange={(e) => setAge(e.target.value)}
               />
 
               <label> Jenis Kelamin</label>
               <select
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
               >
@@ -144,7 +153,7 @@ export default function DialogCreateAnakAsuh({
 
               <label> Pendidikan</label>
               <select
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={education}
                 onChange={(e) => setEducation(e.target.value)}
               >
@@ -161,7 +170,7 @@ export default function DialogCreateAnakAsuh({
               <input
                 type="text"
                 placeholder="Tingkat Pendidikan"
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={educationLevel}
                 onChange={(e) => setEducationLevel(e.target.value)}
               />
@@ -170,14 +179,14 @@ export default function DialogCreateAnakAsuh({
               <input
                 type="text"
                 placeholder="Tempat Lahir"
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={tempatLahir}
                 onChange={(e) => setTempatLahir(e.target.value)}
               />
 
               <label> Status</label>
               <select
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={status}
                 onChange={(e) => setStatus(e.target.value)}
               >
@@ -190,7 +199,7 @@ export default function DialogCreateAnakAsuh({
               <input
                 type="date"
                 placeholder="Tanggal lahir"
-                className="w-full border p-4 rounded-xl"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none"
                 value={TanggalLahir}
                 onChange={(e) => setTanggalLahir(e.target.value)}
               />
@@ -198,7 +207,7 @@ export default function DialogCreateAnakAsuh({
               <label> Deskripsi</label>
               <textarea
                 placeholder="Description"
-                className="w-full border p-4 rounded-xl h-32"
+                className="w-full bg-gray-50/50 border border-gray-200 p-4 rounded-xl h-32 text-sm focus:ring-2 focus:ring-primary-500/20 focus:border-primary-500 focus:bg-white transition-all outline-none resize-none"
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -235,7 +244,7 @@ export default function DialogCreateAnakAsuh({
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-green-700 text-white px-5 py-3 rounded-xl"
+                  className="bg-gradient-to-r from-primary-600 to-emerald-600 hover:from-primary-500 hover:to-emerald-500 text-white px-6 py-3 rounded-xl shadow-lg shadow-primary-500/30 transition-all font-medium"
                 >
                   {loading ? "Loading..." : "Save"}
                 </button>
@@ -243,7 +252,7 @@ export default function DialogCreateAnakAsuh({
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
-                  className="bg-gray-300 px-5 py-3 rounded-xl"
+                  className="bg-gray-200 hover:bg-gray-300 text-gray-700 px-6 py-3 rounded-xl transition-colors font-medium"
                 >
                   Cancel
                 </button>
