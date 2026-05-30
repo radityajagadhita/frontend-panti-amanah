@@ -1,20 +1,47 @@
 "use client"
 
+import { useState, useEffect } from "react";
 import { Quote, Eye, Target, Award, Clock } from "lucide-react";
 import { organizationProfile } from "@/src/data/mockProfile";
 import bgSection from "../../../public/bg-section.jpg";
+import api from "@/src/lib/api";
 
 export default function ProfilePage() {
-  const { sambutan, vision, mission, motto, history } = organizationProfile;
+  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState({
+    ketua_yayasan: "",
+    tahun_periode: "",
+    profil_text: "",
+  });
+  const { vision, mission } = organizationProfile;
+
+  useEffect(() => {
+    fetchProfile();
+  }, []);
+
+  const fetchProfile = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get("/profile");
+      const data = response.data.data;
+      
+      const { ketua_yayasan, tahun_periode, profil_text } = data;
+      setProfile({ ketua_yayasan, tahun_periode, profil_text });
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <>
       {/* Page Header */}
-      <section 
-      className="py-16 md:py-20"
-       style={{
-        backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgSection.src})`,
-      }}
+      <section
+        className="py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgSection.src})`,
+        }}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
@@ -39,23 +66,51 @@ export default function ProfilePage() {
               </p>
             </div>
 
-            <div className="relative rounded-2xl border border-primary-100 bg-primary-50/30 p-8 md:p-10">
-              <Quote className="absolute top-6 left-6 h-10 w-10 text-primary-200" />
-              <div className="relative">
+            {loading ? (
+              /* Loading Skeleton */
+              <div className="relative rounded-2xl border border-primary-100 bg-primary-50/30 p-8 md:p-10 animate-pulse">
                 <div className="mb-6 flex items-center gap-4">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-600 text-xl font-bold text-white shadow-lg shadow-primary-500/25">
-                    {sambutan.name.split(" ").map((n) => n[0]).slice(0, 2).join("")}
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-bold text-gray-900">{sambutan.name}</h3>
-                    <p className="text-sm text-primary-600">{sambutan.title}</p>
+                  {/* Avatar skeleton */}
+                  <div className="h-16 w-16 rounded-full bg-gray-200" />
+                  <div className="space-y-2">
+                    {/* Name skeleton */}
+                    <div className="h-4 w-36 rounded bg-gray-200" />
+                    {/* Jabatan skeleton */}
+                    <div className="h-3 w-48 rounded bg-gray-200" />
+                    {/* Periode skeleton */}
+                    <div className="h-3 w-24 rounded bg-gray-200" />
                   </div>
                 </div>
-                <p className="text-base leading-relaxed text-gray-600 italic">
-                  &ldquo;{sambutan.message}&rdquo;
-                </p>
+                {/* Text skeleton */}
+                <div className="space-y-2">
+                  <div className="h-3 w-full rounded bg-gray-200" />
+                  <div className="h-3 w-full rounded bg-gray-200" />
+                  <div className="h-3 w-3/4 rounded bg-gray-200" />
+                </div>
               </div>
-            </div>
+            ) : (
+              /* Content */
+              <div className="relative rounded-2xl border border-primary-100 bg-primary-50/30 p-8 md:p-10">
+                <Quote className="absolute top-6 left-6 h-10 w-10 text-primary-200" />
+                <div className="relative">
+                  <div className="mb-6 flex items-center gap-4">
+                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-600 text-xl font-bold text-white shadow-lg shadow-primary-500/25">
+                      {profile.ketua_yayasan?.split(" ").map((n) => n[0]).slice(0, 2).join("") ?? ""}
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-bold text-gray-900">
+                        {profile.ketua_yayasan ?? "-"}
+                      </h3>
+                      <p className="text-sm text-primary-600">Ketua Yayasan Panti Amanah</p>
+                      <p className="text-xs text-gray-400">Periode {profile.tahun_periode ?? "-"}</p>
+                    </div>
+                  </div>
+                  <p className="text-base leading-relaxed text-gray-600 italic">
+                    &ldquo;{profile.profil_text ?? ""}&rdquo;
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -93,69 +148,6 @@ export default function ProfilePage() {
                   </li>
                 ))}
               </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Motto */}
-      <section className="bg-gradient-to-r from-primary-600 to-primary-500 py-12 md:py-16">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          <Award className="mx-auto mb-4 h-8 w-8 text-primary-200" />
-          <p className="text-sm font-semibold uppercase tracking-wider text-primary-200 mb-3">
-            Motto Kami
-          </p>
-          <blockquote className="text-2xl font-bold text-white md:text-3xl lg:text-4xl leading-snug">
-            &ldquo;{motto}&rdquo;
-          </blockquote>
-        </div>
-      </section>
-
-      {/* Sejarah / History */}
-      <section className="bg-white py-16 md:py-20">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="text-sm font-semibold uppercase tracking-wider text-primary-600">
-              Sejarah
-            </h2>
-            <p className="mt-2 text-3xl font-bold tracking-tight text-gray-900">
-              Perjalanan Kami
-            </p>
-          </div>
-
-          <div className="relative mx-auto max-w-3xl">
-            {/* Timeline line */}
-            <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-primary-100 md:left-1/2 md:-translate-x-px" />
-
-            <div className="space-y-10">
-              {history.map((event, i) => (
-                <div
-                  key={event.year}
-                  className={`relative flex flex-col md:flex-row ${
-                    i % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
-                >
-                  {/* Dot */}
-                  <div className="absolute left-6 md:left-1/2 -translate-x-1/2 flex h-12 w-12 items-center justify-center rounded-full border-4 border-white bg-gradient-to-br from-primary-500 to-primary-600 text-xs font-bold text-white shadow-md shadow-primary-500/20 z-10">
-                    <Clock className="h-4 w-4" />
-                  </div>
-
-                  {/* Content */}
-                  <div
-                    className={`ml-20 md:ml-0 md:w-[calc(50%-2rem)] ${
-                      i % 2 === 0 ? "md:pr-8 md:text-right" : "md:pl-8"
-                    }`}
-                  >
-                    <span className="inline-block rounded-full bg-primary-100 px-3 py-1 text-xs font-bold text-primary-700 mb-2">
-                      {event.year}
-                    </span>
-                    <h3 className="text-lg font-bold text-gray-900">{event.title}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-gray-500">
-                      {event.description}
-                    </p>
-                  </div>
-                </div>
-              ))}
             </div>
           </div>
         </div>

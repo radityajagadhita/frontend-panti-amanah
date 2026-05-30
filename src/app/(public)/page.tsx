@@ -176,38 +176,45 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-            {featuredGallery.map((item, i) => {
-              const gradient = galleryGradients[i % galleryGradients.length];
-              const imageUrl = item.image_path
-                ? item.image_path.startsWith("http")
-                  ? item.image_path
-                  : `${BASE_URL}/storage/${item.image_path}`
-                : null;
+            {featuredGallery && featuredGallery.length > 0 ? (
+              featuredGallery.map((item, i) => {
+                const gradient = galleryGradients[i % galleryGradients.length];
+                const imageUrl = item.image_path
+                  ? item.image_path.startsWith("http")
+                    ? item.image_path
+                    : `${BASE_URL}/storage/${item.image_path}`
+                  : null;
 
-              return (
-                <div
-                  key={item.id ?? i}
-                  className="group relative h-56 overflow-hidden rounded-2xl"
-                >
-                  {imageUrl ? (
-                    <img
-                      src={imageUrl}
-                      alt={item.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                  ) : (
-                    <div
-                      className={`absolute inset-0 bg-gradient-to-br ${gradient} flex items-center justify-center text-white/30`}
-                    >
-                      <Camera className="h-6 w-6" />
+                return (
+                  <div
+                    key={item.id ?? i}
+                    className="group relative h-56 overflow-hidden rounded-2xl"
+                  >
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt={item.title}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                    ) : (
+                      <div
+                        className={`absolute inset-0 bg-gradient-to-br ${gradient} flex items-center justify-center text-white/30`}
+                      >
+                        <Camera className="h-6 w-6" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/50 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      <p className="text-sm font-medium text-white">{item.title}</p>
                     </div>
-                  )}
-                  <div className="absolute inset-0 flex items-end bg-gradient-to-t from-black/50 via-transparent to-transparent p-4 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    <p className="text-sm font-medium text-white">{item.title}</p>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              // --- TEMPAT TULISAN FALLBACK JIKA KOSONG ---
+              <div className="col-span-full py-12 text-center">
+                <p className="text-gray-500 text-lg font-medium">Belum ada gambar yang diunggah.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -13,6 +13,7 @@ export interface Program {
 interface ProgramCardProps {
   program: Program;
   index: number;
+  onClick?: () => void;
 }
 
 const avatarGradients = [
@@ -26,9 +27,8 @@ const avatarGradients = [
   "from-emerald-500 to-green-500",
 ];
 
-export default function ProgramCard({ program, index }: ProgramCardProps) {
+export default function ProgramCard({ program, index, onClick }: ProgramCardProps) {
   const gradient = avatarGradients[index % avatarGradients.length];
-
   const initials = program.title
     .split(" ")
     .map((word) => word[0])
@@ -37,37 +37,36 @@ export default function ProgramCard({ program, index }: ProgramCardProps) {
     .toUpperCase();
 
   return (
-    <article className="group flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 hover:-translate-y-1">
+    <article
+      onClick={onClick}
+      className="group flex flex-col overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm transition-all duration-300 hover:shadow-xl hover:shadow-primary-500/10 hover:-translate-y-1 cursor-pointer"
+    >
       <div className={`relative flex h-44 items-center justify-center bg-gradient-to-br ${gradient}`}>
         {program.image_url ? (
-          <img
-            src={program.image_url}
-            alt={program.title}
-            className="h-full w-full object-cover"
-          />
+          <img src={program.image_url} alt={program.title} className="h-full w-full object-cover" />
         ) : (
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/20 text-3xl font-bold text-white">
             {initials}
           </div>
         )}
       </div>
-
-      <div className="flex flex-1 flex-col p-6">
+      <div className="flex flex-1 flex-col py-6 px-10">
         <h3 className="text-xl font-semibold text-gray-900">{program.title}</h3>
-        <p className="mt-3 text-sm leading-relaxed text-gray-600">{program.description}</p>
-
-        <div className="mt-6 space-y-3 text-sm text-gray-500">
+        <p className="mt-1 text-sm leading-relaxed text-gray-600 line-clamp-3">
+          {program.description}
+        </p>
+        <div className="mt-3 space-y-2 text-sm text-gray-500">
           <div className="flex items-center gap-2">
             <Calendar className="h-4 w-4 text-primary-400" />
-            <span>{program.date}</span>
+            <span>{program.date || <i>tidak ditentukan</i>}</span>
           </div>
           <div className="flex items-center gap-2">
             <Clock className="h-4 w-4 text-primary-400" />
-            <span>{program.time}</span>
+            <span>{program.time || <i>tidak ditentukan</i>}</span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="h-4 w-4 text-primary-400" />
-            <span>{program.location}</span>
+            <span>{program.location || <i>tidak ditentukan</i>}</span>
           </div>
         </div>
       </div>

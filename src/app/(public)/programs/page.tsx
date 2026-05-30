@@ -1,12 +1,13 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
 import api from "../../../lib/api";
 import ProgramCard, { type Program } from "@/src/components/ProgramCard";
 import bgSection from "../../../public/bg-section.jpg";
 
 export default function ProgramsPage() {
+  const router = useRouter();
   const [programs, setPrograms] = useState<Program[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -28,10 +29,12 @@ export default function ProgramsPage() {
 
   return (
     <>
-      <section className="py-16 md:py-20"
-       style={{
-        backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgSection.src})`,
-      }}>
+      <section
+        className="py-16 md:py-20"
+        style={{
+          backgroundImage: `linear-gradient(rgba(129, 121, 67, 0.71), rgba(121, 126, 66, 0.7)), url(${bgSection.src})`,
+        }}
+      >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl font-extrabold text-white sm:text-4xl lg:text-5xl">
             Program Kegiatan
@@ -57,7 +60,12 @@ export default function ProgramsPage() {
           ) : programs.length > 0 ? (
             <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
               {programs.map((program, index) => (
-                <ProgramCard key={`${program.id ?? index}-${program.title}`} program={program} index={index} />
+                <ProgramCard
+                  key={`${program.id ?? index}-${program.title}`}
+                  program={program}
+                  index={index}
+                  onClick={() => router.push(`/programs/${program.id}`)}
+                />
               ))}
             </div>
           ) : (

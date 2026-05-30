@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Leaf, Phone, Mail, MessageCircle } from "lucide-react";
+import { Phone, Mail, MessageCircle, MapPin } from "lucide-react";
 import api from "@/src/lib/api";
 
 interface SiteProfile {
@@ -11,6 +11,12 @@ interface SiteProfile {
   email?: string;
   whatsapp_link?: string | null;
   instagram?: string | null;
+}
+
+interface Location {
+  id: number;
+  address: string;
+  google_maps_url?: string | null;
 }
 
 const quickLinks = [
@@ -24,6 +30,7 @@ const quickLinks = [
 
 export default function Footer() {
   const [profile, setProfile] = useState<SiteProfile | null>(null);
+  const [locations, setLocations] = useState<Location[]>([]);
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -37,7 +44,18 @@ export default function Footer() {
         console.log(error);
       }
     };
+
+    const fetchLocations = async () => {
+      try {
+        const res = await api.get("/locations");
+        setLocations(res.data?.data ?? []);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchProfile();
+    fetchLocations();
   }, []);
 
   return (
@@ -55,11 +73,34 @@ export default function Footer() {
                 Panti Amanah
               </span>
             </div>
-            <p className="text-sm leading-relaxed text-primary-200/80">
-              Lembaga sosial yang didedikasikan untuk memberikan bantuan,
-              pendidikan, dan kasih sayang kepada anak-anak yatim piatu dan
-              kaum dhuafa. Bersama, kita wujudkan masa depan yang lebih cerah.
-            </p>
+            <h3 className="font-bold text-amber-200 mb-2">Lokasi Panti Asuhan</h3>
+            {/* Alamat */}
+            {locations.length > 0 ? (
+              <ul className="space-y-3 text-sm text-primary-200/80">
+                {locations.map((loc) => (
+                  <li key={loc.id} className="flex items-start gap-3">
+                    <MapPin className="h-4 w-4 shrink-0 text-primary-200 mt-0.5" />
+                    {loc.google_maps_url ? (
+                      <a
+                        href={loc.google_maps_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-white transition-colors leading-relaxed"
+                      >
+                        {loc.address}
+                      </a>
+                    ) : (
+                      <span className="leading-relaxed">{loc.address}</span>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="flex items-center gap-3 text-sm text-primary-200/40 animate-pulse">
+                <MapPin className="h-4 w-4 shrink-0 text-primary-200" />
+                <span>Memuat alamat...</span>
+              </div>
+            )}
           </div>
 
           {/* Quick Links */}
