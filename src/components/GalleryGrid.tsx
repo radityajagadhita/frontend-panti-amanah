@@ -34,7 +34,9 @@ function GalleryCard({ item, index }: { item: GalleryItem; index: number }) {
   const gradient = gradients[index % gradients.length];
 
   const imageUrl = item.image_path
-    ? `${BASE_URL}/storage/${item.image_path}`
+    ? item.image_path.startsWith("http")
+      ? item.image_path
+      : `${BASE_URL}/storage/${item.image_path}`
     : null;
 
 

@@ -21,7 +21,7 @@ const statDashboard = () => {
 
                 setData({
                     anakAsuh: anakAsuhRes.data.data.length,
-                    tahunBerdiri: 12, // placeholder hardcode
+                    tahunBerdiri: new Date().getFullYear() - 2013,
                     donatur: donaturRes.data.data.length,
                     program: programRes.data.data.length,
                 });

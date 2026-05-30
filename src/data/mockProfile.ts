@@ -22,13 +22,12 @@ export const organizationProfile: OrganizationProfile = {
       "Assalamu'alaikum Warahmatullahi Wabarakatuh. Alhamdulillah, segala puji bagi Allah SWT yang telah memberikan rahmat dan hidayah-Nya sehingga Panti Amanah dapat terus berdiri dan berkembang hingga saat ini. Atas nama seluruh keluarga besar Panti Amanah, saya mengucapkan terima kasih yang sebesar-besarnya kepada seluruh donatur, relawan, dan masyarakat yang telah memberikan dukungan tanpa henti. Setiap bantuan yang diberikan, sekecil apapun, sangat berarti bagi anak-anak kami. Mari bersama-sama kita wujudkan masa depan yang lebih cerah bagi generasi penerus bangsa. Jazakumullahu Khairan Katsiran.",
   },
   vision:
-    "Menjadi lembaga sosial terdepan dalam membina dan mempersiapkan generasi muda yang berakhlak mulia, mandiri, dan berdaya saing tinggi.",
+    "Menjadikan PSAA Amanah sebagai pusat kegiatan Islam dalam membentuk generasi muslim yang kaffah.",
   mission: [
-    "Memberikan perlindungan, pendidikan, dan kasih sayang kepada anak-anak yatim piatu dan kaum dhuafa.",
-    "Menyelenggarakan program pendidikan formal dan non-formal yang berkualitas.",
-    "Membangun karakter dan akhlak mulia melalui pembinaan keagamaan yang berkesinambungan.",
-    "Mengembangkan keterampilan dan bakat anak-anak agar mandiri dan siap menghadapi masa depan.",
-    "Menjalin kerjasama dengan berbagai pihak untuk meningkatkan kesejahteraan anak-anak asuh.",
+    "Menerapkan pola didik kepada anak asuh sesuai dengan sunah Rasulullah SAW.",
+    "Memfasilitasi anak asuh untuk memperoleh pendidikan formal sampai tingkat perguruuan tinggi.",
+    "Mem,bentuk dan membina anak asuh yang berdedikasi tinggi serta konsen terhadap perkembangan dan kemajuan.",
+    "Membentuk dan membina anak asuh agar memiliki akhlaqul karimah terhadap masyarakat."
   ],
   motto: "Merawat Dengan Kasih, Mendidik Dengan Hati, Membangun Masa Depan Gemilang",
   history: [
