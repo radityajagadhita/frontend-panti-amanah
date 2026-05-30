@@ -9,6 +9,7 @@ import bgSection from "../../../public/bg-section.jpg";
 
 export default function AnakAsuhPage() {
   const [children, setChildren] = useState<AnakAsuh[]>([]);
+  const [filterGender, setFilterGender] = useState<"Semua" | "Laki-laki" | "Perempuan">("Semua");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,6 +30,11 @@ export default function AnakAsuhPage() {
 
     fetchChildren();
   }, []);
+
+  const filteredChildren = children.filter((child) => {
+    if (filterGender === "Semua") return true;
+    return child.gender === filterGender;
+  });
 
   return (
     <>
@@ -55,6 +61,26 @@ export default function AnakAsuhPage() {
       {/* Cards Grid */}
       <section className="bg-surface py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          
+          {/* Gender Filter */}
+          {!loading && !error && children.length > 0 && (
+            <div className="mb-10 flex justify-center gap-2">
+              {(["Semua", "Laki-laki", "Perempuan"] as const).map((gender) => (
+                <button
+                  key={gender}
+                  onClick={() => setFilterGender(gender)}
+                  className={`rounded-full px-5 py-2 text-sm font-semibold transition-all duration-300 ${
+                    filterGender === gender
+                      ? "bg-primary-600 text-white shadow-md shadow-primary-500/25 scale-105"
+                      : "bg-white text-gray-500 hover:bg-primary-50 hover:text-primary-600 border border-gray-200"
+                  }`}
+                >
+                  {gender}
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Loading state */}
           {loading && (
             <div className="flex flex-col items-center justify-center py-24 text-gray-400">
@@ -80,11 +106,22 @@ export default function AnakAsuhPage() {
 
           {/* Grid */}
           {!loading && !error && children.length > 0 && (
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {children.map((child, i) => (
-                <AnakAsuhCard key={child.id} child={child} index={i} />
-              ))}
-            </div>
+            <>
+              {filteredChildren.length > 0 ? (
+                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                  {filteredChildren.map((child, i) => (
+                    <div key={child.id} className="animate-in fade-in slide-in-from-bottom-4 duration-500 fill-mode-both" style={{ animationDelay: `${i * 100}ms` }}>
+                      <AnakAsuhCard child={child} index={i} />
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-12 text-gray-400 animate-in fade-in">
+                  <Users className="h-12 w-12 mb-4 opacity-40" />
+                  <p className="text-base">Tidak ada anak asuh untuk filter ini.</p>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>

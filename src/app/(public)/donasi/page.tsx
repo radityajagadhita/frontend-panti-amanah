@@ -287,21 +287,32 @@ export default function DonasiPage() {
               </div>
 
               {/* ─── BOTTOM: WhatsApp CTA ─── */}
-              <div className="border-t border-gray-100 bg-gradient-to-r from-gray-50 via-white to-gray-50 px-8 py-8 md:px-10">
-                <div className="mx-auto max-w-lg text-center">
-                  <p className="mb-4 text-sm text-gray-500">
-                    Setelah melakukan transfer, mohon konfirmasi donasi Anda
-                    agar kami dapat memproses dan mengirimkan bukti penerimaan.
+              <div className="relative overflow-hidden bg-gradient-to-r from-emerald-50 via-green-50/50 to-emerald-50 px-8 py-12 md:px-12 border-t border-green-100">
+                <div className="mx-auto max-w-2xl text-center relative z-10">
+                  <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-white text-[#25D366] mb-4 shadow-md shadow-green-200/50">
+                    <MessageCircle className="h-8 w-8 animate-pulse" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    Sudah Melakukan Transfer?
+                  </h3>
+                  <p className="mb-8 text-sm leading-relaxed text-gray-600 max-w-lg mx-auto">
+                    Mohon konfirmasi donasi Anda melalui WhatsApp agar kami dapat segera memproses dan mengirimkan tanda terima resmi yayasan.
                   </p>
-                  <a
-                    href={waLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex w-full items-center justify-center gap-2.5 rounded-xl bg-[#25D366] px-8 py-4 text-base font-bold text-white shadow-lg shadow-[#25D366]/25 transition-all duration-300 hover:bg-[#1fba59] hover:shadow-xl hover:shadow-[#25D366]/30 hover:-translate-y-0.5 sm:w-auto"
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    Konfirmasi Donasi via WhatsApp
-                  </a>
+                  
+                  <div className="relative inline-block w-full sm:w-auto group">
+                    {/* Pulsing background ring */}
+                    <div className="absolute -inset-1 rounded-2xl bg-[#25D366] opacity-30 blur group-hover:opacity-50 transition-opacity duration-300 animate-pulse" />
+                    
+                    <a
+                      href={waLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="relative inline-flex w-full items-center justify-center gap-3 rounded-xl bg-[#25D366] px-10 py-4 text-base font-bold text-white shadow-xl shadow-[#25D366]/30 transition-all duration-300 hover:bg-[#1fba59] hover:-translate-y-1 sm:w-auto"
+                    >
+                      <MessageCircle className="h-6 w-6" />
+                      Konfirmasi via WhatsApp
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>

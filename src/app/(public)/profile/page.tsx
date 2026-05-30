@@ -90,24 +90,33 @@ export default function ProfilePage() {
               </div>
             ) : (
               /* Content */
-              <div className="relative rounded-2xl border border-primary-100 bg-primary-50/30 p-8 md:p-10">
-                <Quote className="absolute top-6 left-6 h-10 w-10 text-primary-200" />
-                <div className="relative">
-                  <div className="mb-6 flex items-center gap-4">
-                    <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-primary-500 to-primary-600 text-xl font-bold text-white shadow-lg shadow-primary-500/25">
+              <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary-600 via-primary-700 to-primary-900 p-8 md:p-12 shadow-2xl animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both">
+                {/* Decorative background elements */}
+                <div className="absolute -top-24 -right-24 h-64 w-64 rounded-full bg-white/10 blur-3xl pointer-events-none" />
+                <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-primary-400/20 blur-3xl pointer-events-none" />
+                
+                <Quote className="absolute top-8 right-8 h-24 w-24 text-white/10 rotate-180 pointer-events-none" />
+                
+                <div className="relative flex flex-col md:flex-row gap-8 items-center md:items-start text-center md:text-left z-10">
+                  <div className="flex-shrink-0 relative">
+                    <div className="flex h-24 w-24 items-center justify-center rounded-full bg-white text-3xl font-bold text-primary-700 shadow-xl ring-4 ring-white/20">
                       {profile.ketua_yayasan?.split(" ").map((n) => n[0]).slice(0, 2).join("") ?? ""}
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-gray-900">
+                  </div>
+                  <div className="flex-1">
+                    <p className="mb-8 text-xl md:text-2xl leading-relaxed text-white font-medium italic drop-shadow-md">
+                      &ldquo;{profile.profil_text ?? ""}&rdquo;
+                    </p>
+                    <div className="space-y-1">
+                      <h3 className="text-xl font-bold text-white tracking-wide">
                         {profile.ketua_yayasan ?? "-"}
                       </h3>
-                      <p className="text-sm text-primary-600">Ketua Yayasan Panti Amanah</p>
-                      <p className="text-xs text-gray-400">Periode {profile.tahun_periode ?? "-"}</p>
+                      <p className="text-primary-200 font-medium">Ketua Yayasan Panti Amanah</p>
+                      <div className="mt-2 inline-block rounded-full bg-white/20 px-4 py-1 text-xs font-semibold text-white backdrop-blur-md border border-white/10 shadow-sm">
+                        Periode {profile.tahun_periode ?? "-"}
+                      </div>
                     </div>
                   </div>
-                  <p className="text-base leading-relaxed text-gray-600 italic">
-                    &ldquo;{profile.profil_text ?? ""}&rdquo;
-                  </p>
                 </div>
               </div>
             )}

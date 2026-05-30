@@ -62,9 +62,9 @@ export default function Footer() {
     <footer className="bg-primary-700 text-white">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Main Footer */}
-        <div className="grid gap-10 py-14 md:grid-cols-3">
+        <div className="grid gap-10 py-14 md:grid-cols-2 lg:grid-cols-4">
           {/* About */}
-          <div>
+          <div className="lg:pr-4">
             <div className="flex items-center gap-2.5 mb-4">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary-600/30">
                 <img src="/icon.png" alt="Panti Amanah" />
@@ -198,6 +198,27 @@ export default function Footer() {
                 </li>
               )}
             </ul>
+          </div>
+
+          {/* Map */}
+          <div className="flex flex-col h-full">
+            <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary-300">
+              Peta Lokasi
+            </h3>
+            <div className="flex-1 w-full overflow-hidden rounded-xl border border-primary-600/50 min-h-[180px] relative bg-primary-800/50 shadow-inner group">
+              {/* Note: This is a placeholder map embed pointing to a generic location. 
+                  In production, the client can replace the src with their actual Google Maps embed URL. */}
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7920.892159349778!2d107.6376764!3d-6.9565899!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e845bf585827%3A0x7cceaecba64697f5!2sPanti%20Asuhan%20Amanah!5e0!3m2!1sid!2sid!4v1780116218042!5m2!1sid!2sid"
+                width="100%"
+                height="100%"
+                style={{ border: 0, position: 'absolute', inset: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="grayscale opacity-75 mix-blend-luminosity group-hover:mix-blend-normal group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-in-out"
+              ></iframe>
+            </div>
           </div>
         </div>
 
